@@ -73,6 +73,41 @@ lacuentita.aplicacion = (function($,moment){
           otras: {}
         };
         
+        datosGlobales ={
+          empresas: [
+            {
+            cuit: 11223334445,
+            alias: "alias",
+            razonSocial: "Razón social",
+            locales: [
+              {
+              empresa: 0,
+              alias: "alias",
+              localidad: 0,
+              direccion: "dirección",
+              coordenadas: [0,0]
+              }   
+            ],
+            inventario: [] // key interno; value EAN/UCC13
+            }
+          ],
+          productos:[ // key EAN/UCC13 code
+            {
+            descripcion: "descripción",
+            medidas: "peso/tamaño",
+            pais: "",
+            precio: [ // historico
+              {
+              precio: 1,
+              fecha: "AAAAMMDD",
+              empresa: 0,
+              local: 0
+              }
+            ]
+            }
+          ]
+          
+        }
         datos = {
         };
         hoy = moment().format("YYYYMMDD");
