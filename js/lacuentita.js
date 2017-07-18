@@ -3,7 +3,7 @@
 La Cuentita
 -----------
 
-3
+Martín Ochoa (almendro)
 2017-07-17
 
 
@@ -11,6 +11,7 @@ La Cuentita
 
 
 var lacuentita = window.lacuentita || {};
+var archivo = 'lacuentita';
 
 lacuentita.aplicacion = (function($,moment){
 
@@ -28,9 +29,6 @@ lacuentita.aplicacion = (function($,moment){
     
     /* data input/output e interfaz usuario */
     var io, ui;
-    
-    /* referencias a las class objects */
-    //var Carga, Jornada, Grilla;
 
     /* datos */
     var hoy;
@@ -45,8 +43,6 @@ lacuentita.aplicacion = (function($,moment){
     var estoyEn,
         seccionActual , 
         subseccionActual;
-        
-    //var dev; /* Opciones de desarrollador */
     
     this.iniciar = function(){
         trace('iniciamos la aplicación');
@@ -77,6 +73,8 @@ lacuentita.aplicacion = (function($,moment){
           otras: {}
         };
         
+        datos = {
+        };
         hoy = moment().format("YYYYMMDD");
         //hoy=0;
         
@@ -658,29 +656,29 @@ lacuentita.aplicacion = (function($,moment){
     borrarCargas = function(e){
       trace( "DEV: borrarCargas "+e.data.soy );
       var target = e.data.soy;
-      tiempoFluido.ui.mostrarDialogoConfirmar({
+      lacuentita.ui.mostrarDialogoConfirmar({
         target: target,
         mensaje: "Borrar todas las cargas y reiniciar el contador de IDs ¿Estás MUY seguro? ¡Esto no se puede deshacer!",
         callbackSi: function(e){
           trace("Si");
           /*
-                    tiempoFluido["datos"]["cargas"] = {};
-          tiempoFluido["datos"]["idClaveCarga"] = 0;
-          trace('tiempoFluido["datos"]["cargas"] = '+tiempoFluido["datos"]["cargas"]);
-          tiempoFluido.io.salvarDatos({
+                    lacuentita["datos"]["cargas"] = {};
+          lacuentita["datos"]["idClaveCarga"] = 0;
+          trace('lacuentita["datos"]["cargas"] = '+lacuentita["datos"]["cargas"]);
+          lacuentita.io.salvarDatos({
             datos: [ 
-              tiempoFluido.datos.cargas,
-              tiempoFluido.datos.idClaveCarga
+              lacuentita.datos.cargas,
+              lacuentita.datos.idClaveCarga
             ],
             objetoStorage: [
-              tiempoFluido.perfil.id+".datos.cargas",
-              tiempoFluido.perfil.id+".datos.idClaveCargas"
+              lacuentita.perfil.id+".datos.cargas",
+              lacuentita.perfil.id+".datos.idClaveCargas"
             ]
           }); 
-          tiempoFluido.io.borrarCargas();
+          lacuentita.io.borrarCargas();
           */
           
-          tiempoFluido.ui.mostrarDialogoResultado({
+          lacuentita.ui.mostrarDialogoResultado({
             target: target,
             mensaje: "Todos las datos locales de las cargas fueron borrados y se reinició el contador de IDs.",
             callbackOk: function(e){
@@ -705,5 +703,5 @@ lacuentita.aplicacion = (function($,moment){
 
 })(jQuery,moment);
 
-trace("cargado tiempo_fluido.js");
+trace("cargado "+archivo+".js");
 /* fin js */
