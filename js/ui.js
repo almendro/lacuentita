@@ -1,19 +1,18 @@
 /* 
 
-Tiempo Fluido
--------------
+La Cuentita
+-----------
 
 Martín Ochoa
-2016-03-17
+2017-07-17
 
-User interface
 
 */
 
 
-var tiempoFluido = window.tiempoFluido || {};
+var lacuentita = window.lacuentita || {};
 
-tiempoFluido.ui = (function($){
+lacuentita.ui = (function($){
     
   var $secciones, $subsecciones,
       $dialogosDiv;

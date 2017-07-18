@@ -1,19 +1,19 @@
-﻿/* 
+/* 
 
-Tiempo Fluido
--------------
+La Cuentita
+-----------
 
 Martín Ochoa
-2016-03-17
+2017-07-17
 
-input/output data
 
 */
 
 
-var tiempoFluido = window.tiempoFluido || {};
 
-tiempoFluido.io = (function($){
+var lacuentita = window.lacuentita || {};
+
+lacuentita.io = (function($){
     
   var storage, soyIo;
   

@@ -13,7 +13,9 @@
       
       var $consola, $log, trace;
       trace=function(e){
-        if (console.log){
+        var cl = (console.log);
+        cl=false;
+        if (cl){
           console.log(e);
         } else { 
           alert(e);  
@@ -36,12 +38,11 @@
         "assets/varios.js",
         "js/ui.js",
         "js/io.js",
-        //"js/dev.js",
         {
           load: "js/"+app+".js",
           complete: function (){
             if(!window[app]){
-              trace("fallo"+app);
+              trace("fallo "+app);
             } else {
             
               //desbichador_init();
@@ -94,7 +95,7 @@
   <!-- ------------------ -->
 
     <header id="mi_cabecera">
-      <h1>Tiempo Fluido</h1>
+      <h1>La Cuentita</h1>
       <nav id="menu_principal" class="barra" data-tipo-objetivo="seccion" >
         <ul>
           <li><a id="m_inicio" href="#inicio" >Inicio</a></li>

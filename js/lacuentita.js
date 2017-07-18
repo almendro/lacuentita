@@ -1,10 +1,10 @@
 /* 
 
-Tiempo Fluido
--------------
+La Cuentita
+-----------
 
-Martín Ochoa
-2016-03-17
+3
+2017-07-17
 
 
 */
@@ -33,16 +33,7 @@ lacuentita.aplicacion = (function($,moment){
     //var Carga, Jornada, Grilla;
 
     /* datos */
-    var biblioteca;
-    var grillaActual;
-    var cargaActual;
-    var jornadaActual;
     var hoy;
-    
-    var diasNombres;
-    var texto;
-
-    var estado, miEstado;
     
     /* botones enviar 
     para capturar todos los botones de los formularios
@@ -53,12 +44,8 @@ lacuentita.aplicacion = (function($,moment){
         
     var estoyEn,
         seccionActual , 
-        subseccionActual , 
-        seccionSiguiente , 
-        subseccionSiguiente ;
+        subseccionActual;
         
-    var TF_MODO_FLUIDO = 0;
-    
     //var dev; /* Opciones de desarrollador */
     
     this.iniciar = function(){
@@ -67,26 +54,17 @@ lacuentita.aplicacion = (function($,moment){
         Referenciar los módulos e inicializarlos
         */
         
-        ui = tiempoFluido.ui;
+        ui = lacuentita.ui;
         ui.iniciar();
         
-        io = tiempoFluido.io;
+        io = lacuentita.io;
         io.iniciar();
         
-        //dev = tiempoFluido.dev;
-        //dev.iniciar();
-        
-        //Carga = tiempoFluido.Carga;
         
         /* fin iniciar módulos */
         
         trace("*** cargamos configuracion guardada ***");
-        /*
-        tiempoPorDia,
-        tiempoIntercargas,
-        resevaContingencias;
-        */
-
+  
         perfil = {
           id: "",
           nombre:"",
@@ -102,111 +80,6 @@ lacuentita.aplicacion = (function($,moment){
         hoy = moment().format("YYYYMMDD");
         //hoy=0;
         
-        valoresPorDefecto = {
-          configuracion : {
-            preferencias : {
-              tiempoPorJornada: 7*60, /* minutos */
-              tiempoIntercargas: 5, /* minutos */
-              reservaContingencias: 2*60, /* minutos */
-              tiempoMinimo: 20, /* minutos */
-              diasDeSemana: /* */
-              {
-                lun: true,
-                mar: true,
-                mie: true,
-                jue: true,
-                vie: true,
-                sab: false,
-                dom: false
-              }
-            },
-            otras : {
-              modo: TF_MODO_FLUIDO
-            }
-            ,
-            vista: {
-              cargas:{
-                id: true,
-                titulo: true,
-                cantidad: true,
-                duracion: true,
-                fechaIni: true,
-                fechaFin: true,
-                fija: true,
-                uniforme: false,
-                continua: false,
-                distribucion: false,
-                patron: false,
-                contenedor: false,
-                contenidos: false,
-                prioridad: false,
-                recurrente: false,
-                responsable: false,
-                equipo: false,
-                resto: true
-              }
-            }
-          } /* /configuracion */
-          ,
-          carga : {
-            id: "0",
-            titulo: "",
-            cantidad: 20,
-            duracion: 1,
-            fechaIni: "",
-            fechaFin: "",
-            fija: false,
-            uniforme: true,
-            continua: true,
-            distribucion: [0],
-            patron: [0],
-            contenedor: "", // string 
-            contenidos: [], // array
-            prioridad: 5,
-            recurrente: false,
-            responsable: "", // string
-            equipo: [], // array
-            resto: 20
-          },
-          datos : {
-            cargas: {},
-            idClaveCarga: -1,
-            jornadas: {},
-            grillas: {}
-          }
-        };
-        
-        texto = {
-          carga: {
-            id: "ID",
-            titulo: "Título",
-            cantidad: "Cantidad",
-            duracion: "Duración",
-            fechaIni: "Fecha Inicio",
-            fechaFin: "Fecha Fin",
-            fija: "Fija",
-            uniforme: "Uniforme",
-            continua: "Contínua",
-            distribucion: "Distribución",
-            patron: "Patrón",
-            contenedor: "Contenedor",
-            contenidos: "Contenidos",
-            prioridad: "Prioridad",
-            recurrente: "Recurrente",
-            responsable: "Responsable",
-            equipo: "Equipo",
-            resto: "Resto"
-          }
-          ,
-          dias: {
-            cortos: [
-              "lun", "mar", "mie", "jue", "vie", "sab", "dom"
-            ],
-            largos: [
-              "lunes", "martes", "miércoles","jueves","viernes","sábado","domingo"
-            ]
-          }
-        }; /*/texto */
         
         $secciones = $( ".seccion" );
         $subsecciones = $( ".subseccion" );
@@ -214,6 +87,9 @@ lacuentita.aplicacion = (function($,moment){
         //ui.ocultarSeccion(); /* CAMBIAR a ocultarSecciones */
 
         // *** PREPROCESOS ***
+        
+        return true;
+        
         
         trace( "Preprocesamos las subsecciones ..." );
         $subsecciones.each(function(e){
