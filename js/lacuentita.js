@@ -10,9 +10,9 @@ Martín Ochoa
 */
 
 
-var tiempoFluido = window.tiempoFluido || {};
+var lacuentita = window.lacuentita || {};
 
-tiempoFluido.aplicacion = (function($,moment){
+lacuentita.aplicacion = (function($,moment){
 
   var aplicacion = function(){
 
