@@ -107,9 +107,10 @@ lacuentita.aplicacion = (function($,moment){
               local: 0
               }
             ],
-            etiquetas: [] // id de etiquetas para categorías
+            etiquetas: [] // listados id de etiquetas para categorías
             }
-          ]       
+          ],
+          etiquetas: [] // key es id -> valor "descripción"
         }
         
         /*
@@ -133,8 +134,11 @@ lacuentita.aplicacion = (function($,moment){
             ],
             total: 0
             }
-          ]
+          ],
+          etiquetasPersonales: [],
+          etiquetasMapa: []
         };
+        
         hoy = moment().format("YYYYMMDD");
         //hoy=0;
         
