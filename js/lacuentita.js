@@ -73,6 +73,9 @@ lacuentita.aplicacion = (function($,moment){
           otras: {}
         };
         
+        /*
+        Datos que se comparten en la web.
+        */
         datosGlobales ={
           empresas: [
             {
@@ -105,9 +108,13 @@ lacuentita.aplicacion = (function($,moment){
               }
             ]
             }
-          ]
-          
+          ]       
         }
+        
+        /*
+        Datos del usuario. los precios siempre se comparten.
+        las cuentitas es opcional
+        */
         datos = {
         };
         hoy = moment().format("YYYYMMDD");
