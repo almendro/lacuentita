@@ -106,16 +106,34 @@ lacuentita.aplicacion = (function($,moment){
               empresa: 0,
               local: 0
               }
-            ]
+            ],
+            etiquetas: [] // id de etiquetas para categorías
             }
           ]       
         }
         
         /*
         Datos del usuario. los precios siempre se comparten.
-        las cuentitas es opcional
+        las cuentitas es opcional.
         */
         datos = {
+          cuentitas:[
+            {
+            empresa: 0;
+            local: 0;
+            fecha: "AAAAMMDD",
+            hora: "HHMMSS",
+            productos: [
+              {
+                id: 0,
+                cantidad: 0,
+                precio: 0,
+                descuento: "tipo"
+              }
+            ],
+            total: 0
+            }
+          ]
         };
         hoy = moment().format("YYYYMMDD");
         //hoy=0;
