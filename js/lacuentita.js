@@ -76,7 +76,7 @@ lacuentita.aplicacion = (function($,moment){
         /*
         Datos que se comparten en la web.
         */
-        datosGlobales ={
+        datosGlobales = {
           empresas: [
             {
             cuit: 11223334445,
@@ -94,7 +94,7 @@ lacuentita.aplicacion = (function($,moment){
             inventario: [] // key interno; value EAN/UCC13
             }
           ],
-          productos:[ // key EAN/UCC13 code
+          productos: [ // key EAN/UCC13 code
             {
             descripcion: "descripción",
             medidas: "peso/tamaño",
@@ -111,17 +111,17 @@ lacuentita.aplicacion = (function($,moment){
             }
           ],
           etiquetas: [] // key es id -> valor "descripción"
-        }
+        };
         
         /*
         Datos del usuario. los precios siempre se comparten.
         las cuentitas es opcional.
         */
         datos = {
-          cuentitas:[
+          cuentitas: [
             {
-            empresa: 0;
-            local: 0;
+            empresa: 0,
+            local: 0,
             fecha: "AAAAMMDD",
             hora: "HHMMSS",
             productos: [
@@ -138,7 +138,7 @@ lacuentita.aplicacion = (function($,moment){
           etiquetasPersonales: [],
           etiquetasMapa: []
         };
-        
+       /* */ 
         hoy = moment().format("YYYYMMDD");
         //hoy=0;
         
