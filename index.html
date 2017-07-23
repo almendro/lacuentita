@@ -1,16 +1,21 @@
 ﻿<!doctype html>
 <html>
   <head>
-    <title>Titulo</title>
+    <title>La Cuentita</title>
+		<!-- https://github.com/almendro/lacuentita -->
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2">
 
     <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
+
     <script src="assets/modernizr.js"></script>
-    <!--<script src="assets/.js"></script>-->
+
     <script>
       
+      /*
+				Consola alternativa para desarrollo en tablet
+      */
       var $consola, $log, trace;
       trace=function(e){
         var cl = (console.log);
@@ -21,6 +26,7 @@
           alert(e);  
         }
       };
+	
       var app = "lacuentita";
       Modernizr.load([
         {
@@ -36,6 +42,7 @@
         "assets/jquery.serializejson.min.js",
         "assets/populateform.js",
         "assets/varios.js",
+        "assets/megagui.js",
         "js/ui.js",
         "js/io.js",
         {
@@ -45,13 +52,6 @@
               trace("fallo "+app);
             } else {
             
-              //desbichador_init();
-             
-              $("#clearAllNiceAlert").click(function(){
-                $("#nice_alert alertbox").hide();
-              });
-             
-              trace("cargó con éxito "+app+".js");
               $log = $("#consola #log");
               $consola = $("#consola");
               $consola_fondo = $("#consola_fondo");
@@ -71,24 +71,34 @@
                   $consola_fondo.unbind("click");
                 }
               });
-
+             
+              $("#clearAllNiceAlert").click(function(){
+                $("#nice_alert alertbox").hide();
+              });
+              
+							/* ------------------------------------ */
+							
+              trace("cargó con éxito "+app+".js");
+              
+							var megagui = window.megagui.tools();
+              megagui.iniciar();
+              
               var aplicacion = new window[app].aplicacion();
               aplicacion.iniciar();
+              
+              
+              
             }
           } /* /complete */
-        }
+        } /* load app */
       ]); /* /Modernizr.load */
     </script>
 
-    <!-- *** DEV *** -->
-    <!-- - ->
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/desbichador/desbichador.css" />
-    <script src="assets/desbichador/desbichador.js"></script>
     <!-- -->
-    
     <link rel="stylesheet" type="text/css" media="screen" href="assets/nicealert/style.css" />
     <script src="assets/nicealert/nice_alert.js"></script>
     <!-- -->
+
   </head>
 
   <body>
@@ -171,18 +181,22 @@
     
   <!-- ------------------ -->
   
-    <div id="dialogos_div"></div>
+    <div id="dialogos_div" class="fondo fondo_completo"></div>
     
-    <div id="dialogo_confirmar" 
+    <div
+			id="dialogo_confirmar" 
       data-plantilla-id="dialogo_confirmar" 
-      class="plantilla_html">
+      class="plantilla_html"
+		>
       <header>
         <h1>Confirmar</h1>
       </header>
       <div class="contenido">
-        <h3 class="mensaje">(mensaje)</h3>
-        <button class="dialogo_no" >NO</button>
-        <button class="dialogo_si" >SI</button>
+        <p class="mensaje">(mensaje)</p>
+        <div class="acciones">
+					<button class="dialogo_no" >NO</button>
+					<button class="dialogo_si" >SI</button>
+        </div>
       </div><!-- /.contenido -->
     </div><!-- /#dialogo_confirmar -->
 
@@ -190,7 +204,7 @@
 
     <!-- /* DEV */ -->
         
-    <div id="consola_fondo"></div>
+    <div id="consola_fondo" class="fondo fondo_completo"></div>
     <div id="consola">
       <header class="cabecera">
         <button id="consola_btn" class="btn btn-fab"><span>>CONSOLA</span></button>
@@ -202,7 +216,7 @@
     
     
     <div id="clearAllNiceAlert" class="btn btn-raised btn-danger btn-xs">
-    Clear All NiceAlerts
+			Clear All NiceAlerts
     </div>
     <!-- -->
 
