@@ -43,6 +43,7 @@
         "assets/populateform.js",
         "assets/varios.js",
         "assets/megagui.js",
+        "assets/doblekey.js",
         "js/ui.js",
         "js/io.js",
         {
@@ -79,10 +80,13 @@
 							/* ------------------------------------ */
 							
               trace("cargó con éxito "+app+".js");
-              
-							var megagui = window.megagui.tools();
-              megagui.iniciar();
-              
+              /*
+							var tools = window.megagui.tools();
+              tools.iniciar();
+              /* */
+              var doblekey = windows.megagui.doblekey;
+              //doblekey.iniciar();
+              /* */
               var aplicacion = new window[app].aplicacion();
               aplicacion.iniciar();
               

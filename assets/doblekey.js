@@ -11,7 +11,6 @@ https://github.com/almendro/megasvg
 
 
 var megagui = window.megagui || {};
-var archivo = 'doblekey';
 
 megagui.doblekey = (function($){
   /*
@@ -30,11 +29,11 @@ megagui.doblekey = (function($){
       //asignaciones[77]= function (){console.log("doble key 77")};
   */
   var doblekey = {
-    /*    
+       
     iniciar : function(){
       
-      trace("iniciar doblekey"");
-      
+      trace("iniciar doblekey");
+    /*  
       jQuery('html').keyup(function(e) {
         
         console.log("html keyup "+e.which);
@@ -147,7 +146,9 @@ megagui.doblekey = (function($){
         console.log ("doblekey_tecla "+doblekey_tecla);
         
       }); // html.keyup
+      */
     } //* iniciar * /
+    /*
     ,
     parar: function(){
     },
@@ -164,5 +165,5 @@ megagui.doblekey = (function($){
 
 })(jQuery);
 
-trace("cargado "+archivo+".js");
+trace("cargado doblekey.js");
 /* fin js */

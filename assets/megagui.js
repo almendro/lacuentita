@@ -11,17 +11,17 @@ https://github.com/almendro/megasvg
 
 
 var megagui = window.megagui || {};
-var archivo = 'megagui';
 
 megagui.tools = (function($){
 
   var tools = function(){
-   
-    this iniciar = function(){
+    
+    this.iniciar = function(){
       
-      trace("iniciar megagui"");
+      trace("iniciar megagui");
       
     }; //* iniciar * /
+		
   };/* /tools */
 
 	trace("megagui tools return");
@@ -29,5 +29,5 @@ megagui.tools = (function($){
 
 })(jQuery);
 
-trace("cargado "+archivo+".js");
+trace("cargado megagui.js");
 /* fin js */

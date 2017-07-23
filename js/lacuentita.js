@@ -764,7 +764,7 @@ lacuentita.aplicacion = (function($,moment){
     }; /* /borrarObjeto */
 
   };/* /aplicacion */
-
+	// trace("return APLICACION");
   return aplicacion;
 
 })(jQuery,moment);
