@@ -3,10 +3,10 @@
 La Cuentita
 -----------
 
-Martín Ochoa
+Martín Ochoa (almendro)
 2017-07-17
 
-
+https://github.com/almendro/lacuentita
 */
 
 
@@ -14,7 +14,8 @@ var lacuentita = window.lacuentita || {};
 
 lacuentita.ui = (function($){
     
-  var $secciones, $subsecciones,
+  var $secciones, 
+			$subsecciones,
       $dialogosDiv;
       
   var $celdasCargas;
