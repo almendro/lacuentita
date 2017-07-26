@@ -6,7 +6,7 @@ La Cuentita
 Martín Ochoa (almendro)
 2017-07-17
 
-https://github.com/almendro/lacuentita
+
 */
 
 
@@ -46,7 +46,6 @@ lacuentita.aplicacion = (function($,moment){
     
     this.iniciar = function(){
         trace('iniciamos la aplicación');
-        
         /*
         Referenciar los módulos e inicializarlos
         */
@@ -73,88 +72,84 @@ lacuentita.aplicacion = (function($,moment){
           preferencias: {},
           otras: {}
         };
-
-				datos = {
-					
-					/*
-					Datos que se comparten en la web.
-					*/
-					compartidos: {
-						empresas: [
-							{
-							cuit: 11223334445,
-							alias: "alias",
-							razonSocial: "Razón social",
-							locales: [
-								{
-								empresa: 0,
-								alias: "alias",
-								localidad: 0,
-								direccion: "dirección",
-								coordenadas: [0,0]
-								}   
-							],
-							inventario: [] // key interno; value EAN/UCC13
-							}
-						],
-						productos: [ // key EAN/UCC13 code
-							{
-							descripcion: "descripción",
-							medidas: "peso/tamaño",
-							pais: "",
-							precio: [ // historico
-								{
-								precio: 1,
-								fecha: "AAAAMMDD",
-								empresa: 0,
-								local: 0
-								}
-							],
-							etiquetas: [] // listados id de etiquetas para categorías
-							}
-						], // productos
-						etiquetas: [] // key es id -> valor "descripción"
-					}, // compartidos
         
-					/*
-					Datos del usuario. los precios siempre se comparten.
-					las cuentitas es opcional.
-					*/
-					usuario : {
-						cuentitas: [
-							{
-							empresa: 0,
-							local: 0,
-							fecha: "AAAAMMDD",
-							hora: "HHMMSS",
-							productos: [
-								{
-									id: 0,
-									cantidad: 0,
-									precio: 0,
-									descuento: "tipo"
-								}
-							], // productos
-							total: 0
-							} // modelo de cuentita
-						], // cuentitas
-						etiquetasPersonales: [],
-						etiquetasMapa: []
-					} // usuario
-        }; // datos
-
+        /*
+        Datos que se comparten en la web.
+        */
+        datosGlobales = {
+          empresas: [
+            {
+            cuit: 11223334445,
+            alias: "alias",
+            razonSocial: "Razón social",
+            locales: [
+              {
+              empresa: 0,
+              alias: "alias",
+              localidad: 0,
+              direccion: "dirección",
+              coordenadas: [0,0]
+              }   
+            ],
+            inventario: [] // key interno; value EAN/UCC13
+            }
+          ],
+          productos: [ // key EAN/UCC13 code
+            {
+            descripcion: "descripción",
+            medidas: "peso/tamaño",
+            pais: "",
+            precio: [ // historico
+              {
+              precio: 1,
+              fecha: "AAAAMMDD",
+              empresa: 0,
+              local: 0
+              }
+            ],
+            etiquetas: [] // listados id de etiquetas para categorías
+            }
+          ],
+          etiquetas: [] // key es id -> valor "descripción"
+        };
+        
+        /*
+        Datos del usuario. los precios siempre se comparten.
+        las cuentitas es opcional.
+        */
+        datos = {
+          cuentitas: [
+            {
+            empresa: 0,
+            local: 0,
+            fecha: "AAAAMMDD",
+            hora: "HHMMSS",
+            productos: [
+              {
+                id: 0,
+                cantidad: 0,
+                precio: 0,
+                descuento: "tipo"
+              }
+            ],
+            total: 0
+            }
+          ],
+          etiquetasPersonales: [],
+          etiquetasMapa: []
+        };
+       /* */ 
         hoy = moment().format("YYYYMMDD");
-
+        //hoy=0;
+        
+        
         $secciones = $( ".seccion" );
         $subsecciones = $( ".subseccion" );
         $botonesEnviar = $( ".enviar" );
         //ui.ocultarSeccion(); /* CAMBIAR a ocultarSecciones */
 
         // *** PREPROCESOS ***
-        
-        return true;
-        
-        
+       
         trace( "Preprocesamos las subsecciones ..." );
         $subsecciones.each(function(e){
           var $soy = $(this);
@@ -242,6 +237,8 @@ lacuentita.aplicacion = (function($,moment){
             "ver_jornada",
             "ver_grilla"
           ]);
+          
+          return true;
           
           ui.mostrarMensajeSeccion( "#bienvenida", estado() );
                    
@@ -764,7 +761,7 @@ lacuentita.aplicacion = (function($,moment){
     }; /* /borrarObjeto */
 
   };/* /aplicacion */
-	// trace("return APLICACION");
+
   return aplicacion;
 
 })(jQuery,moment);

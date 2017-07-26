@@ -9,6 +9,12 @@
 
     <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
 
+<!--
+<script>window.onerror = function(e){
+  alert("error "+e.name+" "+e.message);
+}</script>
+-->
+
     <script src="assets/modernizr.js"></script>
 
     <script>
@@ -196,14 +202,30 @@
         <h1>Confirmar</h1>
       </header>
       <div class="contenido">
-        <p class="mensaje">(mensaje)</p>
-        <div class="acciones">
-					<button class="dialogo_no" >NO</button>
-					<button class="dialogo_si" >SI</button>
-        </div>
-      </div><!-- /.contenido -->
-    </div><!-- /#dialogo_confirmar -->
+	<div class="mensaje">
+  (mensaje)
+</div><!-- mensaje -->
+<button class="dialogo_no" >NO</button>
+<button class="dialogo_si" >SI</button>
+      </div><!-- .contenido -->
+    </div><!-- #dialogo_confirmar -->
 
+    <div id="dialogo_primera_vez" 
+ class="dialogo" >
+      <header>
+<h1>¡Bienvenido!</h1>
+      </header>
+     <div class="contenido">
+       <div class="mensaje">
+  <p>
+  ¡No hay perfil definido! 
+  Tienes que definir uno para empezar 
+  a realizar cuentitas
+  </p>
+</div><!-- mensaje -->
+<button class="dialogo_si" >DEFINIR PERFIL</button>
+      </div><!-- contenido -->
+    </div> <!-- #dialogo_primera_vez -->
   <!-- ------------------ -->
 
     <!-- /* DEV */ -->

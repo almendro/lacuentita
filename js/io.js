@@ -15,7 +15,10 @@ var lacuentita = window.lacuentita || {};
 
 lacuentita.io = (function($){
     
-  var storage, soyIo;
+  var storage, 
+      soyIo,
+      apl  // prefijo de aplicacion
+      ;
   
   var io = //function(){
     {
@@ -25,6 +28,7 @@ lacuentita.io = (function($){
       trace('iniciar la IO (input/output data)');
       $.alwaysUseJsonInStorage(true);
       storage = $.localStorage;
+      apl = "la_cuentita";
     }
     ,
     borrarTodo : function(){
