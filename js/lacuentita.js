@@ -73,75 +73,76 @@ lacuentita.aplicacion = (function($,moment){
           otras: {}
         };
         
+        datos = {
+        
         /*
         Datos que se comparten en la web.
         */
-        datosGlobales = {
-          empresas: [
-            {
-            cuit: 11223334445,
-            alias: "alias",
-            razonSocial: "Razón social",
-            locales: [
-              {
-              empresa: 0,
-              alias: "alias",
-              localidad: 0,
-              direccion: "dirección",
-              coordenadas: [0,0]
-              }   
-            ],
-            inventario: [] // key interno; value EAN/UCC13
-            }
-          ],
-          productos: [ // key EAN/UCC13 code
-            {
-            descripcion: "descripción",
-            medidas: "peso/tamaño",
-            pais: "",
-            precio: [ // historico
-              {
-              precio: 1,
-              fecha: "AAAAMMDD",
-              empresa: 0,
-              local: 0
-              }
-            ],
-            etiquetas: [] // listados id de etiquetas para categorías
-            }
-          ],
-          etiquetas: [] // key es id -> valor "descripción"
-        };
+        compartidos: {
+        empresas: [
+        {
+        cuit: 11223334445,
+        alias: "alias",
+        razonSocial: "Razón social",
+        locales: [
+        {
+        empresa: 0,
+        alias: "alias",
+        localidad: 0,
+        direccion: "dirección",
+        coordenadas: [0,0]
+        }   
+        ],
+        inventario: [] // key interno; value EAN/UCC13
+        }
+        ],
+        productos: [ // key EAN/UCC13 code
+        {
+        descripcion: "descripción",
+        medidas: "peso/tamaño",
+        pais: "",
+        precio: [ // historico
+        {
+        precio: 1,
+        fecha: "AAAAMMDD",
+        empresa: 0,
+        local: 0
+        }
+        ],
+        etiquetas: [] // listados id de etiquetas para categorías
+        }
+        ], // productos
+        etiquetas: [] // key es id -> valor "descripción"
+        }, // compartidos
         
         /*
         Datos del usuario. los precios siempre se comparten.
         las cuentitas es opcional.
         */
-        datos = {
-          cuentitas: [
-            {
-            empresa: 0,
-            local: 0,
-            fecha: "AAAAMMDD",
-            hora: "HHMMSS",
-            productos: [
-              {
-                id: 0,
-                cantidad: 0,
-                precio: 0,
-                descuento: "tipo"
-              }
-            ],
-            total: 0
-            }
-          ],
-          etiquetasPersonales: [],
-          etiquetasMapa: []
-        };
-       /* */ 
-        hoy = moment().format("YYYYMMDD");
-        //hoy=0;
+        usuario : {
+        cuentitas: [
+        {
+        empresa: 0,
+        local: 0,
+        fecha: "AAAAMMDD",
+        hora: "HHMMSS",
+        productos: [
+        {
+        id: 0,
+        cantidad: 0,
+        precio: 0,
+        descuento: "tipo"
+        }
+        ], // productos
+        total: 0
+        } // modelo de cuentita
+        ], // cuentitas
+        etiquetasPersonales: [],
+        etiquetasMapa: []
+        } // usuario
+        }; // datos
         
+        hoy = moment().format("YYYYMMDD");
         
         $secciones = $( ".seccion" );
         $subsecciones = $( ".subseccion" );
