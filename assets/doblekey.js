@@ -98,10 +98,11 @@ megagui.doblekey = (function($){
 			return true;
     }
     ,
-    borrarTecla: function (p){
+    borrar_tecla: function (p){
+			asignaciones[p.tecla] = undefined;
     }
     ,
-    borrarTeclas:function (){
+    borrar_todas_teclas:function (){
 			asignaciones=[];
     }
     

@@ -23,7 +23,7 @@ lacuentita.aplicacion = (function($,moment){
     /* principales */
     var perfil,
         configuracion,
-        valoresPorDefecto;
+        valores_por_defecto;
     
     var datos; /* objeto con toda la data de usuario */
     
@@ -36,16 +36,18 @@ lacuentita.aplicacion = (function($,moment){
     /* botones enviar 
     para capturar todos los botones de los formularios
     */
-    var $botonesEnviar,
+    var $botones_enviar,
         $secciones,
         $subsecciones;
         
-    var estoyEn,
-        seccionActual , 
-        subseccionActual;
+    var estoy_en,
+        seccion_actual , 
+        subseccion_actual;
     
     this.iniciar = function(){
+			
         trace('iniciamos la aplicación');
+        
         /*
         Referenciar los módulos e inicializarlos
         */
@@ -74,79 +76,69 @@ lacuentita.aplicacion = (function($,moment){
         };
         
         datos = {
-        
-        /*
-        Datos que se comparten en la web.
-        */
-        compartidos: {
-        empresas: [
-        {
-        cuit: 11223334445,
-        alias: "alias",
-        razonSocial: "Razón social",
-        locales: [
-        {
-        empresa: 0,
-        alias: "alias",
-        localidad: 0,
-        direccion: "dirección",
-        coordenadas: [0,0]
-        }   
-        ],
-        inventario: [] // key interno; value EAN/UCC13
-        }
-        ],
-        productos: [ // key EAN/UCC13 code
-        {
-        descripcion: "descripción",
-        medidas: "peso/tamaño",
-        pais: "",
-        precio: [ // historico
-        {
-        precio: 1,
-        fecha: "AAAAMMDD",
-        empresa: 0,
-        local: 0
-        }
-        ],
-        etiquetas: [] // listados id de etiquetas para categorías
-        }
-        ], // productos
-        etiquetas: [] // key es id -> valor "descripción"
-        }, // compartidos
-        
-        /*
-        Datos del usuario. los precios siempre se comparten.
-        las cuentitas es opcional.
-        */
-        usuario : {
-        cuentitas: [
-        {
-        empresa: 0,
-        local: 0,
-        fecha: "AAAAMMDD",
-        hora: "HHMMSS",
-        productos: [
-        {
-        id: 0,
-        cantidad: 0,
-        precio: 0,
-        descuento: "tipo"
-        }
-        ], // productos
-        total: 0
-        } // modelo de cuentita
-        ], // cuentitas
-        etiquetasPersonales: [],
-        etiquetasMapa: []
-        } // usuario
+						
+					/*
+					Datos que se comparten en la web.
+					*/
+					compartidos: {
+						empresas: [{
+							cuit: 11223334445,
+							alias: "alias",
+							razon_social: "Razón social",
+							locales: [{
+								empresa: 0,
+								alias: "alias",
+								localidad: 0,
+								direccion: "dirección",
+								coordenadas: [0,0]
+							}],
+							inventario: [] // key interno; value EAN/UCC13
+						}],
+						productos: [{ // key EAN/UCC13 code
+							descripcion: "descripción",
+							medidas: "peso/tamaño",
+							pais: "",
+							precio: [{ // historico
+								precio: 1,
+								fecha: "AAAAMMDD",
+								empresa: 0,
+								local: 0
+							}],
+							etiquetas: [] // listados id de etiquetas para categorías
+						}], // productos
+						etiquetas: [] // key es id -> valor "descripción"
+					}, // compartidos
+					
+					/*
+					Datos del usuario. los precios siempre se comparten.
+					las cuentitas es opcional.
+					*/
+					usuario : {
+						cuentitas: [{
+							empresa: 0,
+							local: 0,
+							fecha: "AAAAMMDD",
+							hora: "HHMMSS",
+							productos: [{
+								id: 0,
+								cantidad: 0,
+								precio: 0,
+								descuento: "tipo",
+								etiquetas_personales: []
+								categorias_personales: []
+							}], // productos
+							total: 0
+						}], // cuentitas
+						etiquetas_personales: [],
+						etiquetas_mapa: []
+					} // usuario
         }; // datos
         
         hoy = moment().format("YYYYMMDD");
         
         $secciones = $( ".seccion" );
         $subsecciones = $( ".subseccion" );
-        $botonesEnviar = $( ".enviar" );
+        $botones_enviar = $( ".enviar" );
         //ui.ocultarSeccion(); /* CAMBIAR a ocultarSecciones */
 
         // *** PREPROCESOS ***
@@ -154,22 +146,22 @@ lacuentita.aplicacion = (function($,moment){
         trace( "Preprocesamos las subsecciones ..." );
         $subsecciones.each(function(e){
           var $soy = $(this);
-          var $miPlantilla;
+          var $mi_plantilla;
           var $enviar;
           trace("subseccion: "+$soy.attr("id"));
           if ( $soy.attr("data-plantilla") ){
            trace( "hay plantilla" );
-            $miPlantilla = ui.aplicarPlantilla({
+            $mi_plantilla = ui.aplicar_plantilla({
               $subseccion: $soy
             });
           }
           /*
-          $enviar = $( ".enviar", $miPlantilla );
+          $enviar = $( ".enviar", $mi_plantilla );
           $enviar.bind
           */
           if( $("form", $soy).length > 0 ){
             trace("hay form...");
-            habilitarFormulario({
+            habilitar_formulario({
               $subseccion: $soy
             });
           } else {
@@ -180,38 +172,39 @@ lacuentita.aplicacion = (function($,moment){
         trace("---");
         trace( "Procesamos las barras de navegacion..." );
         trace("");
+        
         $( "a", $( ".barra" )).each( function(i){
           var $a = $(this);
           var $barra = $a.parents( ".barra" );
-          var tipoObjetivo = $barra.attr( "data-tipo-objetivo" );
+          var tipo_objetivo = $barra.attr( "data-tipo-objetivo" );
           
-          $a.bind("click.misEventos", function(){
+          $a.bind("click.mis_eventos", function(){
             /* obtenemos el id del destino */
             var id = $a.attr("href").replace("#","");
-            irA({
+            ir_a({
               id: id,
-              tipo: tipoObjetivo,
-              preprocesarIrA: preprocesarIrA[id] 
-              /* referenciamos a la funcion dentro de preprocesarIrA */
-            }); /* irA */
+              tipo: tipo_objetivo,
+              preprocesar_ir_a: preprocesar_ir_a[id] 
+              /* referenciamos a la funcion dentro de preprocesar_ir_a */
+            }); /* ir_a */
           }); /* $a.bind */
         }); /* .each */
         
         $("#dev_borrar_todo").bind(
-          "click.misEventos",
-          borrarTodo
+          "click.mis_eventos",
+          borrar_todo
         );
         
         $("#dev_borrar_cargas").bind(
-          "click.misEventos",
-          borrarCargas
+          "click.mis_eventos",
+          borrar_cargas
         );
         
         
         /* Interaccion con el usuario */
         trace(" *** ACA COMIENZA LA POSTA *** ");
         
-        perfil = io.cargarPerfil();
+        perfil = io.cargar_perfil();
         estado( perfil==false ? "SIN_PERFIL" : "PERFIL" );
         
         if ( estado() == "SIN_PERFIL" )
@@ -225,7 +218,7 @@ lacuentita.aplicacion = (function($,moment){
           */
           trace("crear perfil");
           
-          estoyEn = irA("perfil");
+          estoy_en = ir_a("perfil");
           
           /* dehabilitamos cualquier otra opcion */
           ui.deshabilitarSubseccion([
@@ -243,12 +236,12 @@ lacuentita.aplicacion = (function($,moment){
           
           ui.mostrarMensajeSeccion( "#bienvenida", estado() );
                    
-          habilitarFormulario({
-            formulario: estoyEn.subseccion,
+          habilitar_formulario({
+            formulario: estoy_en.subseccion,
             callback: function(){
               estado( "SIN_CONFIGURACION" );
             }
-          }); /* /habilitarFormulario */
+          }); /* /habilitar_formulario */
           
         } 
         else 
@@ -268,7 +261,7 @@ lacuentita.aplicacion = (function($,moment){
           
           configuracion = $.extend(
             {},
-            valoresPorDefecto.configuracion,
+            valores_por_defecto.configuracion,
             configuracion
           );
           trace( "configuracion = " + JSON.stringify(configuracion) );
@@ -294,7 +287,7 @@ lacuentita.aplicacion = (function($,moment){
             trace( "... generar datos por defecto..." );
             datos = $.extend(
               {},
-              valoresPorDefecto.datos,
+              valores_por_defecto.datos,
               datos
             );
             io.salvarDatos({
@@ -306,7 +299,7 @@ lacuentita.aplicacion = (function($,moment){
             }); /* /io.salvarDatos */
             carga = $.extend(
               {},
-              valoresPorDefecto.carga,
+              valores_por_defecto.carga,
               {
                 id: idCargaSiguiente(),
                 cantidad: configuracion.tiempoMinimo,
@@ -322,7 +315,7 @@ lacuentita.aplicacion = (function($,moment){
             // aquí plantillas preferidas.
             carga = $.extend(
               {},
-              valoresPorDefecto.carga,
+              valores_por_defecto.carga,
               {
                 id: datos.idClaveCarga,
                 cantidad: configuracion.tiempoMinimo,
@@ -376,17 +369,17 @@ lacuentita.aplicacion = (function($,moment){
       return false;
     }; /* /estado */
     
-    var irA = function(p){
+    var ir_a = function(p){
       /*
       actualiza la pantalla cambiando entre secciones
       y subsecciones.
       Puede recibir un string con el id de la DIV
-      o un object con el id, tipo y preprocesarIrA
+      o un object con el id, tipo y preprocesar_ir_a
       id: string
       tipo: string, indica si se trata de una seccion
-      preprocesarIrA: string, por lo general igual a id
+      preprocesar_ir_a: string, por lo general igual a id
       */
-      trace("irA :"+p.id);
+      trace("ir_a :"+p.id);
       var tipo, id;
       trace("typeof p: "+typeof(p));
       if (typeof(p)==="string"){
@@ -407,9 +400,9 @@ lacuentita.aplicacion = (function($,moment){
       dentro del objeto preprosesarIrA genneral referenciado
       en el parametro.
       */
-      if( p.preprocesarIrA != undefined ){
-        trace( "preprocesarIrA ...");
-        var tmp = p.preprocesarIrA();
+      if( p.preprocesar_ir_a != undefined ){
+        trace( "preprocesar_ir_a ...");
+        var tmp = p.preprocesar_ir_a();
         trace( "tmp="+tmp);
       }
       
@@ -432,16 +425,16 @@ lacuentita.aplicacion = (function($,moment){
       salida = true;
       
       return (p.callback ) ? p.callback( salida ) : salida;
-    }; /* /irA */
+    }; /* /ir_a */
     
-    var generarId = function ( datosPerfil ) {
+    var generar_id = function ( datosPerfil ) {
       var id = datosPerfil.email;
       id = replaceAll( id, "." , "_dot_" );
       id = replaceAll( id, "@" , "_at_" );
-      trace(" generarId: "+id);
+      trace(" generar_id: "+id);
       datosPerfil[ "id" ] = id;
       return datosPerfil;
-    }; /* /generarId */
+    }; /* /generar_id */
 
     var idCargaSiguiente = function(){
       trace( "idCargaSiguiente: ");
@@ -457,16 +450,16 @@ lacuentita.aplicacion = (function($,moment){
       trace(" --- LA BIENVENIDA ---");
       trace("");
       
-      estoyEn = irA( "bienvenida" );
+      estoy_en = ir_a( "bienvenida" );
       
       $( '.valor.perfil.nombre' ).text( perfil.nombre );
       $( '.valor.perfil.id' ).text( perfil.id );
       
-      $( '#btn_comenzar_ya' ).bind( 'click.misEventos' , comenzarYa );
-      //$( '#btn_configurar_preferencias' ).bind( 'click.misEventos' , configurarPreferencias );
+      $( '#btn_comenzar_ya' ).bind( 'click.mis_eventos' , comenzarYa );
+      //$( '#btn_configurar_preferencias' ).bind( 'click.mis_eventos' , configurarPreferencias );
       /*
       ui.verPreferencias ({
-        datos: valoresPorDefecto.preferencias,
+        datos: valores_por_defecto.preferencias,
         div: "#valores_defecto",
         prefijo: "valor_"
       });
@@ -486,17 +479,17 @@ lacuentita.aplicacion = (function($,moment){
     var configurarPreferencias = function () {
        
        trace("configurarPreferencias: ");
-       estoyEn = irA( "preferencias" );
+       estoy_en = ir_a( "preferencias" );
        //ui.mostrarSeccion( "configuracion" );
        /*
        ui.ponerDatos ({
            form: "#preferencias",
            data: 
              configuracion['preferencias'] == false ? 
-             valoresPorDefecto.preferencias : configuracion['preferencias'] 
+             valores_por_defecto.preferencias : configuracion['preferencias'] 
        });
        * /
-       habilitarFormulario({
+       habilitar_formulario({
          formulario: "preferencias" ,
          seccion: "configuracion" ,
          callback: function( datosPreferencias ){
@@ -523,10 +516,10 @@ lacuentita.aplicacion = (function($,moment){
               ui.mostrarSeccion ( "inicio" );
               /*
               ui.mostrarSubseccion ( "bienvenida" );
-              $( '#btn_comenzar_ya' ).bind( 'click.misEventos' , comenzarYa );
-              $( '#btn_configurar_preferencias' ).bind( 'click.misEventos' , configurarPreferencias );
+              $( '#btn_comenzar_ya' ).bind( 'click.mis_eventos' , comenzarYa );
+              $( '#btn_configurar_preferencias' ).bind( 'click.mis_eventos' , configurarPreferencias );
               ui.verPreferencias ({
-                datos: valoresPorDefecto.preferencias,
+                datos: valores_por_defecto.preferencias,
                 div: "#valores_defecto",
                 prefijo: "valor_"
               });
@@ -534,26 +527,26 @@ lacuentita.aplicacion = (function($,moment){
             }/* /callback * /
           }); /* io.salvarDatos * /
         }/* /callback * /
-      }); /* habilitarFormulario */
+      }); /* habilitar_formulario */
     }; /* configurarPreferencias */
     
     
-    var habilitarFormulario = function(p){
+    var habilitar_formulario = function(p){
       /*
       Establece las acciones del boton enviar,
       recibe el objeto jQuery de subseccion
       y el callback de la funcion
       para cuando el botón es presionado
       */
-      trace('habilitarFormulario: '+p.$subseccion.attr("id"));
+      trace('habilitar_formulario: '+p.$subseccion.attr("id"));
       var salida;
       var enviar_callback = 
             (p.enviar_callback) ? 
               p.enviar_callback :
-              habilitarFormularioCallbackGeneral;
+              habilitar_formularioCallbackGeneral;
       $( ".enviar", p.$subseccion )
       .bind( 
-        'click.misEventos',
+        'click.mis_eventos',
         function (){
           trace( "enviarDatos: " + p.$subseccion.attr("id") );
           io.obtenerDatosFormulario({
@@ -565,9 +558,9 @@ lacuentita.aplicacion = (function($,moment){
       
       return (p.callback ) ? p.callback( salida ) : salida;
       
-    }; /* /habilitarFormulario */
+    }; /* /habilitar_formulario */
     
-    var habilitarFormularioCallbackGeneral = function( datosDelFormulario ){
+    var habilitar_formularioCallbackGeneral = function( datosDelFormulario ){
       /* 
       Recibimos de io.obtenerDatosFormulario
       los datos para ser ingresados y salvados         
@@ -597,7 +590,7 @@ lacuentita.aplicacion = (function($,moment){
           });
         } /* /callback */
       }); /* /io.salvarDatos */
-    } /* /habilitarFormularioCallback */
+    } /* /habilitar_formularioCallback */
 
     var preprocesarDatosASalvar = function(p){
       trace( "preprocesarDatosASalvar "+p.subseccion);
@@ -609,7 +602,7 @@ lacuentita.aplicacion = (function($,moment){
       // ATENCION AQUI PROCESAR X SECTOR
       switch( p.subseccion ){
         case "perfil" :
-          salida["datos"][0] = generarId(p.datos);
+          salida["datos"][0] = generar_id(p.datos);
           salida["objetoStorage"][0]= "perfil";
           break;
         case "preferencias" :
@@ -655,24 +648,24 @@ lacuentita.aplicacion = (function($,moment){
       });
     }; /* /resultadoPostSalvarFormulario */
     
-    var deshabilitarBotonesEnviar = function(){
-      trace("deshabilitarBotonesEnviar");
-      //$botonesEnviar.unbind("click.misEventos");
+    var deshabilitarbotones_enviar = function(){
+      trace("deshabilitarbotones_enviar");
+      //$botones_enviar.unbind("click.mis_eventos");
     };
     
-    var preprocesarIrA = {
+    var preprocesar_ir_a = {
       /*
       prepara las diferentes secciones y subsecciones
       antes de visualizar el cambio, como rellernar
       los forms con datos
       */
       verGrilla : function(){
-        trace("preprocesarIrA :verGrilla");
+        trace("preprocesar_ir_a :verGrilla");
         return "verGrilla";
       }
       ,
       agregarCarga : function(){
-        trace("preprocesarIrA: agregarCarga");
+        trace("preprocesar_ir_a: agregarCarga");
         ui.ponerDatos ({
           form: "#agregarCarga",
           data: carga
@@ -696,13 +689,13 @@ lacuentita.aplicacion = (function($,moment){
       }
     };
     
-    borrarTodo = function(e){
-      trace( "borrarTodo "+e);
-      ui.mostrarDialogoConfirmar({
+    borrar_todo = function(e){
+      trace( "borrar_todo "+e);
+      ui.mostrar_dialogo_confirmar({
         mensaje: "Borrar todos los datos ¿Estás MUY seguro? ¡Esto no se puede deshacer!",
         callbackSi: function(e){
           trace("Si");
-          io.borrarTodo();          
+          io.borrar_todo();          
           ui.mostrarDialogoResultado({
             mensaje: "Todos los datos locales fueron borrados.",
             callbackOk: function(e){
@@ -714,13 +707,13 @@ lacuentita.aplicacion = (function($,moment){
         callbackNo: function(e){
           trace("Cancelar");
         }
-      }); /* /mostrarDialogoConfirmar */
-    }; /* /borrarTodo */
+      }); /* /mostrar_dialogo_confirmar */
+    }; /* /borrar_todo */
     
-    borrarCargas = function(e){
-      trace( "DEV: borrarCargas "+e.data.soy );
+    borrar_cargas = function(e){
+      trace( "DEV: borrar_cargas "+e.data.soy );
       var target = e.data.soy;
-      lacuentita.ui.mostrarDialogoConfirmar({
+      lacuentita.ui.mostrar_dialogo_confirmar({
         target: target,
         mensaje: "Borrar todas las cargas y reiniciar el contador de IDs ¿Estás MUY seguro? ¡Esto no se puede deshacer!",
         callbackSi: function(e){
@@ -739,7 +732,7 @@ lacuentita.aplicacion = (function($,moment){
               lacuentita.perfil.id+".datos.idClaveCargas"
             ]
           }); 
-          lacuentita.io.borrarCargas();
+          lacuentita.io.borrar_cargas();
           */
           
           lacuentita.ui.mostrarDialogoResultado({
@@ -754,8 +747,8 @@ lacuentita.aplicacion = (function($,moment){
         callbackNo: function(e){
           trace("Cancelar");
         }
-      }); /* /mostrarDialogoConfirmar */
-    }; /* /borrarTodo */
+      }); /* /mostrar_dialogo_confirmar */
+    }; /* /borrar_todo */
     
     borrarObjeto = function (e){
       // var tmp = io.borrarObjeto(perfil.id+".preferencias");  

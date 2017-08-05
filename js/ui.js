@@ -44,8 +44,8 @@ lacuentita.ui = (function($){
     //  $(".dialogo").fadeOut(300);
     }
     ,
-    mostrarDialogoConfirmar : function (p){
-      trace("mostrarDialogoConfirmar");
+    mostrar_dialogo_confirmar : function (p){
+      trace("mostrar_dialogo_confirmar");
       var $dialogo = ui.crearDialogo({
         classCss: "confirmar",
         botones: [{
@@ -63,7 +63,7 @@ lacuentita.ui = (function($){
       $(".mensaje",$dialogo).html(p.mensaje);
       $dialogosDiv.fadeIn(100);
       $dialogo.fadeIn(300);
-    } /* /mostrarDialogoConfirmar */
+    } /* /mostrar_dialogo_confirmar */
     ,
     mostrarDialogoResultado: function (p){
       trace("mostrarDialogoResultado");
@@ -110,7 +110,7 @@ lacuentita.ui = (function($){
       for ( b in botones ){
         $("."+botones[b]["class"],$popup)
           .bind(
-            "click.misEventos",
+            "click.mis_eventos",
             {
               $dialogo: $popup,
               callback: botones[b]["callback"],
@@ -297,14 +297,14 @@ lacuentita.ui = (function($){
     }
     ,
     
-    aplicarPlantilla : function (p){
+    aplicar_plantilla : function (p){
       /*
       Aplica una plantilla html, por lo general
       un formulario que se repite, a una subsección
       que tiene una acción diferente sobre
       un mismo conjunto de datos. Ej. ABM CARGAS
       
-      aplicarPlantilla({
+      aplicar_plantilla({
         $subseccion: jQuery
       });
       
@@ -312,7 +312,7 @@ lacuentita.ui = (function($){
       var salida,
           $miPlantilla,
           $enviar;
-      trace("aplicarPlantilla $subseccion"+p.$subseccion.attr("id"));
+      trace("aplicar_plantilla $subseccion"+p.$subseccion.attr("id"));
       
       $miPlantilla = $( "[data-plantilla-id='"+p.$subseccion.attr( "data-plantilla" )+"']" ).clone();
       $miPlantilla.
@@ -327,7 +327,7 @@ lacuentita.ui = (function($){
       salida = $miPlantilla;
       
       return (p.callback) ? p.callback( salida ) : salida;
-    } /* /aplicarPlantilla */
+    } /* /aplicar_plantilla */
     ,
     
     mostrarMensajeSeccion : function (div,m){

@@ -51,9 +51,9 @@ lacuentita.io = (function($){
         }
     }
     ,
-    cargarPerfil : function(){
+    cargar_perfil : function(){
 
-       trace('IO: cargarPerfil');
+       trace('IO: cargar_perfil');
        var perfil;
        if ( storage.isSet('tf.perfil')){
          trace('hay datos de perfil');
