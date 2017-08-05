@@ -48,8 +48,8 @@
         "assets/jquery.serializejson.min.js",
         "assets/populateform.js",
         "assets/varios.js",
-        "assets/megagui.js",
-        "assets/doblekey.js",
+				"assets/doblekey.js",
+        "assets/megagui.js",        
         "js/ui.js",
         "js/io.js",
         {
@@ -80,23 +80,36 @@
               });
              
               $("#clearAllNiceAlert").click(function(){
-                $("#nice_alert alertbox").hide();
+                $("#nice_alert").toggle();
               });
               
 							/* ------------------------------------ */
 							
               trace("cargó con éxito "+app+".js");
-              /*
-							var tools = window.megagui.tools();
-              tools.iniciar();
+              trace("");
+              trace("... INICIAR ...");
               /* */
-              var doblekey = windows.megagui.doblekey;
-              //doblekey.iniciar();
+							var tools = new window.megagui.tools();
+              tools.iniciar();
+							
+              tools.doblekey.estalecer_tecla({
+								tecla: 27,
+								funcion: function(){
+									//trace("ESCAPE!!!");
+									$("#clearAllNiceAlert").click();
+								}
+							});
+							tools.doblekey.estalecer_tecla({
+								tecla: 84,
+								funcion: function(){
+									//trace("TERMINAL!!!");
+									$consola_btn.click();
+								}
+							});
+							
               /* */
               var aplicacion = new window[app].aplicacion();
-              aplicacion.iniciar();
-              
-              
+              //aplicacion.iniciar();
               
             }
           } /* /complete */
@@ -195,7 +208,7 @@
     
     <div id="dialogo_confirmar" 
          data-plantilla-id="dialogo_confirmar" 
-         class="plantilla_html" >
+         class="plantilla_html dialogo" >
       <header>
         <h1>Confirmar</h1>
       </header>
@@ -240,7 +253,7 @@
     
     
     <div id="clearAllNiceAlert" class="btn btn-raised btn-danger btn-xs">
-			Clear All NiceAlerts
+			Toggle All NiceAlerts
     </div>
     <!-- -->
 

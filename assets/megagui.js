@@ -16,15 +16,19 @@ megagui.tools = (function($){
 
   var tools = function(){
     
-    this.iniciar = function(){
+    var doblekey;
+    var soy = this;
+    soy.iniciar = function(){
       
       trace("iniciar megagui");
+			soy.doblekey = megagui.doblekey;
+			soy.doblekey.iniciar();
       
     }; //* iniciar * /
-		
+    
   };/* /tools */
 
-	trace("megagui tools return");
+  trace("megagui tools return");
   return tools;
 
 })(jQuery);
