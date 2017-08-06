@@ -16,9 +16,9 @@ lacuentita.ui = (function($){
     
   var $secciones, 
 			$subsecciones,
-      $dialogosDiv;
+      $dialogos_div;
       
-  var $celdasCargas;
+  var $celdas_cargas;
   
   var ui = {
     
@@ -28,65 +28,65 @@ lacuentita.ui = (function($){
       
       $secciones = $( ".seccion" );
       $subsecciones = $( ".subseccion" );
-      $dialogosDiv = $( "#dialogos_div" );
+      $dialogos_div = $( "#dialogos_div" );
       
       trace("secciones: "+$secciones.length);
       trace("subsecciones: "+$subsecciones.length);
       
-      $celdasCargas = $("table.listado tr > *");
-      trace("celdasCargas ="+$celdasCargas.length);
+      $celdas_cargas = $("table.listado tr > *");
+      trace("celdas_cargas ="+$celdas_cargas.length);
       
     } /* iniciar */
     , 
 
-    ocultarDialogos : function (){
-      trace('ocultarDialogos');
+    ocultar_dialogos : function (){
+      trace('ocultar_dialogos');
     //  $(".dialogo").fadeOut(300);
     }
     ,
     mostrar_dialogo_confirmar : function (p){
       trace("mostrar_dialogo_confirmar");
-      var $dialogo = ui.crearDialogo({
-        classCss: "confirmar",
+      var $dialogo = ui.crear_dialogo({
+        class_css: "confirmar",
         botones: [{
-            classCss: "dialogo_si",
+            class_css: "dialogo_si",
             etiqueta: "SI",
-            callback: p.callbackSi
+            callback: p.callback_si
           },{
-            classCss: "dialogo_no",
+            class_css: "dialogo_no",
             etiqueta: "NO",
-            callback: p.callbackNo,
+            callback: p.callback_no,
             terminar: true
           }]
       });
       trace("$dialogo id="+$dialogo.attr("id"));
       $(".mensaje",$dialogo).html(p.mensaje);
-      $dialogosDiv.fadeIn(100);
+      $dialogos_div.fadeIn(100);
       $dialogo.fadeIn(300);
     } /* /mostrar_dialogo_confirmar */
     ,
-    mostrarDialogoResultado: function (p){
-      trace("mostrarDialogoResultado");
-      var $dialogo = ui.crearDialogo({
-        classCss: "resultado",
+    mostrar_dialogo_resultado: function (p){
+      trace("mostrar_dialogo_resultado");
+      var $dialogo = ui.crear_dialogo({
+        class_css: "resultado",
         botones: [{
-          classCss: "dialogo_ok",
+          class_css: "dialogo_ok",
           etiqueta: "OK",
-          callback: p.callbackOk,
+          callback: p.callback_ok,
           terminar: true
         }]
       });
       trace("$dialogo id="+$dialogo.attr("id"));
       $(".mensaje",$dialogo).html(p.mensaje);
-      $dialogosDiv.fadeIn(100);
+      $dialogos_div.fadeIn(100);
       $dialogo.fadeIn(300);
-    } /* /mostrarDialogoResultado */
+    } /* /mostrar_dialogo_resultado */
     ,
-    crearDialogo : function (p){
+    crear_dialogo : function (p){
       var botones = p.botones;
       
-      var id = "dialogo_"+p.classCss;
-      trace("crearDialogo id="+id);
+      var id = "dialogo_"+p.class_css;
+      trace("crear_dialogo id="+id);
       var popup;
       popup = '<div id="'+id+'" ';
           popup+= 'class="dialogo" >';
@@ -103,7 +103,7 @@ lacuentita.ui = (function($){
             
       trace("");
       //trace(popup);
-      $(popup).appendTo( $dialogosDiv );
+      $(popup).appendTo( $dialogos_div );
       var $popup = $("#"+id);
       $popup.hide();
       // agrega los eventos y callback a cada  botón
@@ -116,23 +116,23 @@ lacuentita.ui = (function($){
               callback: botones[b]["callback"],
               terminar: botones[b]["terminar"]
             },
-            ui.cerrarDialogo
+            ui.cerrar_dialogo
           );
       }
       return $popup;
-    } /* /crearDialogo */
+    } /* /crear_dialogo */
     ,
-    cerrarDialogo: function (p){
+    cerrar_dialogo: function (p){
       p.data.callback();
-      trace("cerrarDialogo "+p.data.$dialogo.attr("id"));
+      trace("cerrar_dialogo "+p.data.$dialogo.attr("id"));
       p.data.$dialogo.fadeOut(300).remove();
       if (p.data.terminar == true ){
-        $dialogosDiv.fadeOut(100);
+        $dialogos_div.fadeOut(100);
       }
     }
     ,
-    eliminarDialogo: function (p){
-      trace("eliminarDialogo "+p.$dialogo.attr("id"));
+    eliminar_dialogo: function (p){
+      trace("eliminar_dialogo "+p.$dialogo.attr("id"));
           /*
           $( document ).on( 
             "popupafterclose", 
@@ -142,15 +142,15 @@ lacuentita.ui = (function($){
             }
           );*/
       p.$dialogo.remove();
-      $dialogosDiv.fadeOut(100);
-    } /* /eliminarDialogo */
+      $dialogos_div.fadeOut(100);
+    } /* /eliminar_dialogo */
     ,
     
     /* --- MANEJO DE SECCIONES --- */
     
-    mostrarSeccion : function (seccion){
-      trace('UI: mostrarSeccion '+seccion);
-      ui.ocultarSecciones();
+    mostrar_seccion : function (seccion){
+      trace('UI: mostrar_seccion '+seccion);
+      ui.ocultar_secciones();
 
       $secciones
         .filter($("#"+seccion))
@@ -162,44 +162,44 @@ lacuentita.ui = (function($){
         .filter("#m_"+seccion)
         .addClass("actual");
         
-    } /* /mostrarSeccion */
+    } /* /mostrar_seccion */
     ,
     
-    ocultarSecciones : function (){
-      trace('UI: ocultarSecciones');
+    ocultar_secciones : function (){
+      trace('UI: ocultar_secciones');
       $secciones
         .hide()
         .removeClass("actual");
-    } /* /ocultarSecciones */
+    } /* /ocultar_secciones */
     ,
     
-    habilitarSeccion : function (seccion){
+    habilitar_seccion : function (seccion){
       seccion = listar(seccion);
       for ( s in seccion ){
         $("#m_"+seccion[s])
           .removeClass("deshabilitada")
           .show();
       }      
-    } /* /habilitarSeccion */
+    } /* /habilitar_seccion */
     ,
-    deshabilitarSeccion : function (seccion){
+    deshabilitar_seccion : function (seccion){
       seccion = listar(seccion);
       for ( s in seccion ){
         $("#m_"+seccion[s])
           .addClass("deshabilitada")
           .hide();
       }      
-    } /* /deshabilitarSeccion */
+    } /* /deshabilitar_seccion */
     ,
     
     /* --- Manejo de SUBSECCIONES --- */
     
-    mostrarSubseccion : function (subseccion){
-      trace('UI: mostrarSubseccion '+subseccion);
+    mostrar_subseccion : function (subseccion){
+      trace('UI: mostrar_subseccion '+subseccion);
       
-      ui.ocultarSubsecciones();
+      ui.ocultar_subsecciones();
       
-      var prop = ui.subseccionProp(subseccion);
+      var prop = ui.subseccion_propiedades(subseccion);
       
       trace("indice "+prop.indice+" de seccion "+prop.seccion);
       
@@ -221,28 +221,28 @@ lacuentita.ui = (function($){
         .addClass("actual");
 
       if( prop.seccion != $secciones.filter(".actual").attr("id") ){
-        ui.mostrarSeccion(prop.seccion);
+        ui.mostrar_seccion(prop.seccion);
       }
-    } /* / mostrarSubseccion */
+    } /* / mostrar_subseccion */
     ,
     
-    ocultarSubsecciones : function (){
-      trace('UI: ocultarSubsecciones');
+    ocultar_subsecciones : function (){
+      trace('UI: ocultar_subsecciones');
       
       $subsecciones
         .hide()
         .removeClass("actual");
-    } /* /ocultarSubsecciones */
+    } /* /ocultar_subsecciones */
     ,
     
-    habilitarSubseccion : function (subseccion){
-      trace( "UI: habilitarSubseccion "+subseccion);
+    habilitar_subseccion : function (subseccion){
+      trace( "UI: habilitar_subseccion "+subseccion);
       /*
       modo jQM 
       establecemos propiedad enabled del botón
       y mostramos el <a>
       *
-      var prop = this.subseccionProp(subseccion);
+      var prop = this.subseccion_propiedades(subseccion);
       var $seccion = prop.$seccion;
       var indice = prop.indice;
       $( "[data-role='tabs']",$seccion ).tabs("option","enabled",[indice]);
@@ -250,20 +250,20 @@ lacuentita.ui = (function($){
       
       $( "#a_"+subseccion).show();
       
-    } /* /habilitarSubseccion */
+    } /* /habilitar_subseccion */
     ,
-    deshabilitarSubseccion : function (subseccion){
+    deshabilitar_subseccion : function (subseccion){
       /*
       subseccion puede ser un STRING o ARRAY de STRINGS
       */
-      trace("UI: deshabilitarSubseccion "+subseccion);
+      trace("UI: deshabilitar_subseccion "+subseccion);
       
       subseccion = listar(subseccion);
       var prop, $seccion, indice;
       for ( s in subseccion) {
         trace("..."+subseccion[s]);
         /*
-        prop = this.subseccionProp(subseccion[s]);
+        prop = this.subseccion_propiedades(subseccion[s]);
         $seccion = prop.$seccion;
         indice = prop.indice;
         $( "[data-role='tabs']",$seccion ).tabs("option","disabled",[indice]);
@@ -272,13 +272,13 @@ lacuentita.ui = (function($){
         
         $( "#a_"+subseccion[s], $seccion ).hide();
       }
-    } /* /deshabilitarSubseccion */
+    } /* /deshabilitar_subseccion */
     ,
      
-    subseccionProp : function(subseccion){
+    subseccion_propiedades : function(subseccion){
       /* devuelve el indice y seccion */
       var $seccion = $("#"+subseccion).parents(".seccion");
-      trace("UI: subseccionProp seccion ="+ $seccion.attr("id"));
+      trace("UI: subseccion_propiedades seccion ="+ $seccion.attr("id"));
       var $subsecciones = $(".subseccion",$seccion);
       var indice = ($subsecciones.filter("#"+subseccion).index())-1;
       //trace(subseccion+" indice= "+indice);
@@ -288,14 +288,16 @@ lacuentita.ui = (function($){
         indice: indice,
         subseccion: subseccion
       }
-    } /* /subseccionProp */
+    } /* /subseccion_propiedades */
     ,
     
-    subseccionActivada: function(p){
-      trace("subseccionActivada en seccion "+p.seccion);
+    subseccion_activada: function(p){
+      trace("subseccion_activada en seccion "+p.seccion);
       return $( ".activada", $("#"+p.seccion) ).attr("id");
     }
     ,
+    
+    /* --- MANEJO DE PLANTILLAS HTML --- */
     
     aplicar_plantilla : function (p){
       /*
@@ -310,34 +312,34 @@ lacuentita.ui = (function($){
       
       */
       var salida,
-          $miPlantilla,
+          $mi_plantilla,
           $enviar;
       trace("aplicar_plantilla $subseccion"+p.$subseccion.attr("id"));
       
-      $miPlantilla = $( "[data-plantilla-id='"+p.$subseccion.attr( "data-plantilla" )+"']" ).clone();
-      $miPlantilla.
+      $mi_plantilla = $( "[data-plantilla-id='"+p.$subseccion.attr( "data-plantilla" )+"']" ).clone();
+      $mi_plantilla.
         removeAttr("data-plantilla-id").
         removeClass("plantilla_html");
-      $enviar = $( ".enviar", $miPlantilla );
+      $enviar = $( ".enviar", $mi_plantilla );
       $enviar.text(
         p.$subseccion.attr("data-plantilla-enviar")
       );
-      p.$subseccion.append($miPlantilla);
+      p.$subseccion.append($mi_plantilla);
             
-      salida = $miPlantilla;
+      salida = $mi_plantilla;
       
       return (p.callback) ? p.callback( salida ) : salida;
     } /* /aplicar_plantilla */
     ,
     
-    mostrarMensajeSeccion : function (div,m){
+    mostrar_mensaje_seccion : function (div,m){
       $(".mensaje",$(div)).hide();
       $("."+m,$(div)).show();
-    } /* /mostrarMensajeSeccion */
+    } /* /mostrar_mensaje_seccion */
     ,
     
-    verPreferencias : function (p){
-      trace('UI: verPreferencias '+p);
+    ver_preferencias : function (p){
+      trace('UI: ver_preferencias '+p);
       var $div = $(p.div);
       var $propiedades = $( ".propiedad" , $div ).each( function (e) { 
         var soy = $(this);
@@ -349,17 +351,17 @@ lacuentita.ui = (function($){
         trace (propiedad+" = "+p.datos[propiedad]);
       });
       
-    } /* verPreferencias */
+    } /* ver_preferencias */
     ,
     
-    ponerDatos : function ( p ){
-      trace('UI: ponerDatos '+p);
+    poner_datos : function ( p ){
+      trace('UI: poner_datos '+p);
       return populateForm (p); // Asset externo
-    } /* ponerDatos */
+    } /* poner_datos */
     ,
-    crearHtmlItemCarga: function(p){
+    crear_html_item_carga: function(p){
       //var $modeloFila = $("[data-plantilla-id='filaCarga']").clone;
-      var filaHtml = ""; // <tr>
+      var fila_html = ""; // <tr>
       /*
       var opciones = $.extend(
       {},
@@ -371,57 +373,57 @@ lacuentita.ui = (function($){
       var v;
       for( v in p.carga ){
         // trace("v = "+v);
-        filaHtml += "<td data-id=\""+v+"\" class=\""+v+"\" >";
-        filaHtml += p.carga[v];
-        filaHtml += "</td>";
+        fila_html += "<td data-id=\""+v+"\" class=\""+v+"\" >";
+        fila_html += p.carga[v];
+        fila_html += "</td>";
       }
-      //filaHtml += "</tr>";
-      return filaHtml;
-    } /* /crearHtmlItemCarga */
+      //fila_html += "</tr>";
+      return fila_html;
+    } /* /crear_html_item_carga */
     ,
-    listarCargas : function(p){
+    listar_cargas : function(p){
     
-      trace("UI listarCargas");
+      trace("UI listar_cargas");
       var datos = p.datos;
       var subseccion = p.subseccion;
       var $subseccion = $subsecciones.filter("#"+subseccion);
-      var filasHtml, filaHtml, filaHead;
+      var filas_html, fila_html, fila_head;
       var $tbody = $("tbody",$subseccion);
       var $thead = $("thead",$subseccion);
-      filasHtml = "";
+      filas_html = "";
       trace("filas de datos: "+contar(datos));
       for( d in datos ){
         trace("d = "+d);
-        filaHtml = ui.crearHtmlItemCarga({
+        fila_html = ui.crear_html_item_carga({
           carga: datos[d]
         });
-        filaHtml = '<tr><td class="acciones"><button class="modificarCarga">M</button></td>' + filaHtml;
-        filaHtml +='<td class="acciones"><button class="borrarCarga">X</button></td></tr>';
+        fila_html = '<tr><td class="acciones"><button class="modificarCarga">M</button></td>' + fila_html;
+        fila_html +='<td class="acciones"><button class="borrarCarga">X</button></td></tr>';
         
-        filasHtml += filaHtml;
+        filas_html += fila_html;
       }
-      $tbody.append(filasHtml);
+      $tbody.append(filas_html);
       trace("fila cabecera");
-      filaHead =  ui.crearHtmlItemCarga({
+      fila_head =  ui.crear_html_item_carga({
         carga: p.texto.carga
       });
-      filaHead = replaceAll(filaHead, "<td","<th");
-      filaHead = replaceAll(filaHead, "</td","</th");
-      filaHead = '<tr><th class="acciones">M</th>' + filaHead;
-      filaHead +='<th class="acciones">X</th></tr>';
+      fila_head = replaceAll(fila_head, "<td","<th");
+      fila_head = replaceAll(fila_head, "</td","</th");
+      fila_head = '<tr><th class="acciones">M</th>' + fila_head;
+      fila_head +='<th class="acciones">X</th></tr>';
 
-      $thead.append(filaHead);
+      $thead.append(fila_head);
       
       
       /**/
       trace("listo");
-    } /* /listarCargas */
+    } /* /listar_cargas */
     ,
-    filtrarListado: function(p){
-      trace( "UI: filtrarListado" );
-      $celdasCargas = $("table.listado tr > *");
+    filtrar_listado: function(p){
+      trace( "UI: filtrar_listado" );
+      $celdas_cargas = $("table.listado tr > *");
       var vista = p.vista;
-      $celdasCargas.each(function(e){
+      $celdas_cargas.each(function(e){
         if( vista[ $(this).attr("data-id") ] == false )
         {
           $(this).hide();
@@ -431,7 +433,7 @@ lacuentita.ui = (function($){
           $(this).show();
         }
       });
-    } /* /filtrarListado */
+    } /* /filtrar_listado */
   };
   
   return ui;
