@@ -22,7 +22,7 @@
       /*
 				Consola alternativa para desarrollo en tablet
       */
-      var $consola, $log, trace;
+      var $consola, $bitacora, trace;
       trace=function(e){
         var cl = (console.log);
         cl=false;
@@ -59,12 +59,12 @@
               trace("fallo "+app);
             } else {
             
-              $log = $("#consola #log");
+              $bitacora = $("#consola #log");
               $consola = $("#consola");
               $consola_fondo = $("#consola_fondo");
               $consola_btn = $("#consola_btn");
               trace = function (e){
-                $log.append("<li>"+e+"</li>");
+                $bitacora.append("<li>"+e+"</li>");
               }
               $consola_btn.bind("click",function(){
                 $consola.toggleClass("abierta");
