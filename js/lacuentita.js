@@ -21,6 +21,9 @@ lacuentita.aplicacion = (function($,moment){
     trace('variables y objetos');
     
     /* principales */
+    
+    var APLICACION_PREFIJO = "lacuentita";
+    
     var perfil,
         configuracion,
         valores_por_defecto;
@@ -56,10 +59,13 @@ lacuentita.aplicacion = (function($,moment){
         ui.iniciar();
         
         io = lacuentita.io;
-        io.iniciar({aplicacion_prefijo:"lacuentita"});
+        io.iniciar({ aplicacion_prefijo: APLICACION_PREFIJO });
         
         /* fin iniciar módulos */
-  
+
+
+				/* INICIA ESTRUCTURA DE DATOS */
+				
         perfil = {
           id: "",
           nombre:"",
@@ -128,6 +134,8 @@ lacuentita.aplicacion = (function($,moment){
 						etiquetas_mapa: []
 					} // usuario
         }; // datos
+        
+        /* FIN ESTRUCTURA DE DATOS */
         
         hoy = moment().format("YYYYMMDD");
         
@@ -422,6 +430,27 @@ lacuentita.aplicacion = (function($,moment){
       return (p.callback ) ? p.callback( salida ) : salida;
     }; /* /ir_a */
     
+    var preprocesar_ir_a = {
+      /*
+      prepara las diferentes secciones y subsecciones
+      antes de visualizar el cambio, como rellernar
+      los forms con datos
+      */
+      ver_grilla : function(){
+        trace("preprocesar_ir_a :ver_grilla");
+        return "ver_grilla";
+      }
+      ,
+      agregar_carga : function(){
+        trace("preprocesar_ir_a: agregar_carga");
+        ui.poner_datos ({
+          form: "#agregar_carga",
+          data: carga
+        });
+        return "agregar_carga";
+      }
+    }; /* /preprocesar_ir_a */
+
     var generar_id = function ( datosPerfil ) {
       var id = datosPerfil.email;
       id = replaceAll( id, "." , "_dot_" );
@@ -648,26 +677,6 @@ lacuentita.aplicacion = (function($,moment){
       //$botones_enviar.unbind("click.mis_eventos");
     };
     
-    var preprocesar_ir_a = {
-      /*
-      prepara las diferentes secciones y subsecciones
-      antes de visualizar el cambio, como rellernar
-      los forms con datos
-      */
-      ver_grilla : function(){
-        trace("preprocesar_ir_a :ver_grilla");
-        return "ver_grilla";
-      }
-      ,
-      agregar_carga : function(){
-        trace("preprocesar_ir_a: agregar_carga");
-        ui.poner_datos ({
-          form: "#agregar_carga",
-          data: carga
-        });
-        return "agregar_carga";
-      }
-    };
     
     var callbacks_por_defecto = {
       /*
