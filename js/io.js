@@ -6,7 +6,7 @@ La Cuentita
 Martín Ochoa
 2017-07-17
 
-
+INPUT/OUTPUT DATA STORAGE
 */
 
 
@@ -20,70 +20,72 @@ lacuentita.io = (function($){
       apl  // prefijo de aplicacion
       ;
   
-  var io = //function(){
+  var io =
     {
-    //trace('creamos el objeto IO');
     iniciar: function (p){
       soy_io = this;
       trace('iniciar la IO (input/output data)');
       $.alwaysUseJsonInStorage(true);
       storage = $.localStorage;
-			apl = p.aplicacion_prefijo;
-    }
+      apl = p.aplicacion_prefijo;
+    } /* /iniciar */
     ,
     borrar_todo : function(){
-       trace('IO: borrar_todo');
-       storage.remove(apl);  
-       return true;
-    }
+      trace('IO: borrar_todo');
+      storage.remove(apl);  
+      return true;
+    }/* /borrar_todo */
     ,
     borrar_objeto : function (objeto){
-        trace("IO: borrar_objeto "+objeto);
-        trace("existe? "+storage.isSet(apl + '.'+objeto));
-        if (storage.isSet(apl + '.'+objeto)){
-          storage.remove(apl + '.'+objeto);
-          trace(objeto+"? "+storage.isSet(apl + '.'+objeto));
-          trace("borrado ok");
-          return true;
-        } else {
-          trace("no existe para borrar");
-          return false;
-        }
-    }
+      trace("IO: borrar_objeto "+objeto);
+      trace("existe? "+storage.isSet(apl + '.'+objeto));
+      if (storage.isSet(apl + '.'+objeto)){
+        storage.remove(apl + '.'+objeto);
+        trace(objeto+"? "+storage.isSet(apl + '.'+objeto));
+        trace("borrado ok");
+        return true;
+      } else {
+        trace("no existe para borrar");
+        return false;
+      }
+    } /* /borrar_todo */
     ,
     cargar_perfil : function(){
+      trace('IO: cargar_perfil');
+      /*
+       * A Futuro se pueden agregar más perfiles
+       */
+      var perfil;
+      if ( storage.isSet(apl+'.perfil')){
+        trace('hay datos de perfil');
+        perfil = storage.get(apl+'.perfil');
+        trace('perfil='+JSON.stringify(perfil));
+      } else {
+        trace('NO hay datos de perfil guardados');
+        perfil = false;
+      }
 
-       trace('IO: cargar_perfil');
-       var perfil;
-       if ( storage.isSet(apl+'.perfil')){
-         trace('hay datos de perfil');
-         perfil = storage.get(apl+'.perfil');
-         trace('perfil='+JSON.stringify(perfil));
-       } else {
-         trace('NO hay datos de perfil guardados');
-         perfil = false;
-       }
-    
-       return perfil;
-    }
+      return perfil;
+    } /* /cargar_perfil */
     ,
     cargar_configuracion : function(perfil_id){
 
-       trace('IO: cargar_configuracion');
-       trace( 'perfil_id = ' + perfil_id );
+      trace('IO: cargar_configuracion');
+      trace( 'perfil_id = ' + perfil_id );
 
-       var configuracion;
-       if ( storage.isSet( apl + '.' + perfil_id + '.configuracion' ) ) {
-         trace('hay datos de configuracion');
-         configuracion = storage.get( apl + '.' + perfil_id + '.configuracion' );
-       } else {
-         trace('NO hay datos de configuracion guardados');
-         configuracion = false;
-       }
-       return configuracion; // tmp
-     }
+			var configuracion;
+			if ( storage.isSet( apl + '.' + perfil_id + '.configuracion' )){
+				trace('hay datos de configuracion');
+				configuracion = storage.get( apl + '.' + perfil_id + '.configuracion' );
+			} else {
+				trace('NO hay datos de configuracion guardados');
+				configuracion = false;
+			}
+			return configuracion; // tmp
+     } /* /cargar_configuracion */
      ,
      cargar_datos : function (perfil_id){
+			 
        trace('IO: cargar_datos');
        trace( 'perfil_id = ' + perfil_id );
 
@@ -102,12 +104,15 @@ lacuentita.io = (function($){
      } /* /cargar_datos */
      ,
     obtener_datos_formulario : function ( p ){
-      trace('IO: obtener_datos_formulario (serializeJSON)' + p.$subseccion.attr("id"));
+			
+      trace('IO: obtener_datos_formulario (serializeJSON)' 
+      + p.$subseccion.attr("id"));
+      
       var salida = {};
       salida["datos"] = $("form",p.$subseccion).serializeJSON({checkboxUncheckedValue: false});
       salida["$subseccion"] = p.$subseccion;
       return ( p.callback )? p.callback( salida ) : salida;
-    } /* obtener_datos_formulario */
+    } /* /obtener_datos_formulario */
     ,
     salvar_datos : function (p) {
       //datos , objetoStorage , callback
@@ -121,8 +126,8 @@ lacuentita.io = (function($){
         trace( "... salvado "+objetoStorage[d]+" ..." );
       }
       return (p.callback ) ? p.callback( salida ) : salida;
-    } /* salvar_datos */
-    
+    } /* /salvar_datos */
+
   }; /* var io */
 
   return io;
