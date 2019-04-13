@@ -1,11 +1,12 @@
-﻿<!doctype html>
+<!doctype html>
 <html>
   <head>
+    <script type="text/javascript" src="assets/dev/hnl.mobileConsole.js"></script>
     <title>La Cuentita</title>
 		<!-- https://github.com/almendro/lacuentita -->
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
     <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
 
@@ -25,7 +26,7 @@
       var $consola, $bitacora, trace;
       trace=function(e){
         var cl = (console.log);
-        cl=false;
+       // cl=false;
         if (cl){
           console.log(e);
         } else { 
@@ -108,6 +109,7 @@
 							});
 							
               /* */
+              
               var aplicacion = new window[app].aplicacion();
               aplicacion.iniciar();
               
