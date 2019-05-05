@@ -1,0 +1,144 @@
+#mi_cabecera h1
+{
+  font-size: 2em;
+  padding: .5em;
+  margin: 0;
+}
+
+/* https://www.jqueryscript.net/demo/Basic-Hamburger-Navigation-Menu-jQuery-CSS/ */
+#mi_cabecera nav {
+  margin: 0;
+  padding: 0;
+}
+
+#mi_cabecera nav ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+
+#mi_cabecera nav ul.opening {
+  display: block;
+  height: 30px;
+}
+
+#mi_cabecera nav li { 
+  border-bottom: 1px solid #fff; 
+}
+
+#mi_cabecera nav li:last-child { 
+  border-bottom: none; 
+}
+
+#mi_cabecera nav a {
+  color: #eee;
+  background: #333;
+  display: block;
+  padding: 1.5em 4em 1.5em 3em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+#mi_cabecera nav a:hover, 
+#mi_cabecera nav a:focus 
+{ 
+  background: #390; 
+}
+
+#mi_cabecera .site-nav--icon {
+  font-size: 1.4em;
+  margin-right: 1em;
+  width: 1.1em;
+  text-align: right;
+  color: rgba(255,255,255,.4);
+}
+
+#mi_cabecera .menu-toggle {
+  position: absolute;
+  padding: 0.8em;
+  top: 1em;
+  right: .5em;
+  cursor: pointer;
+}
+
+#mi_cabecera .hamburger, 
+#mi_cabecera .hamburger::before, 
+#mi_cabecera .hamburger::after {
+  content: '';
+  display: block;
+  background: #EBEBD3;
+  height: 3px;
+  width: 2em;
+  border-radius: 3px;
+  -webkit-transition: all ease-in-out 350ms;
+  transition: all ease-in-out 350ms;
+}
+
+#mi_cabecera .hamburger::before {
+  -webkit-transform: translateY(-7px);
+  transform: translateY(-7px);
+}
+
+#mi_cabecera .hamburger::after {
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);
+}
+
+#mi_cabecera .open .hamburger {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+#mi_cabecera .open .hamburger::before { display: none; }
+
+#mi_cabecera .open .hamburger::after {
+  -webkit-transform: translateY(-1px) rotate(-90deg);
+  transform: translateY(-1px) rotate(-90deg);
+}
+
+@media (min-width: 780px) {
+
+  #mi_cabecera .menu-toggle { display: none; }
+
+  #mi_cabecera nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  #mi_cabecera nav li {
+    flex: 1 1 auto;
+    border: none;
+  }
+
+  #mi_cabecera nav li a {
+    padding: 1.5em 1.3em 1.5em 1.3em;
+    margin: 0;
+    border: none;
+    background-color: #f04343;
+  }
+
+  #mi_cabecera nav a:hover,  
+  #mi_cabecera nav a:focus 
+  { 
+    background-color: rgba(255,255,255,.10); 
+  }
+
+  #mi_cabecera .logo {
+    flex: 0 0 200px;
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  #mi_cabecera nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    background-color: #f04343;
+  }
+
+}
