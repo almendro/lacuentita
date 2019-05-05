@@ -119,6 +119,14 @@
           var aplicacion = new window[app].aplicacion();
           aplicacion.iniciar();
           
+          $('.menu-toggle').click(function() {
+
+            $('ul').toggleClass('opening');
+            $(this).toggleClass('open');
+
+          })
+          $("#consola").hide();
+          
         }
       } // lanzar
     </script>
@@ -135,15 +143,22 @@
 
     <header id="mi_cabecera">
       <h1>La Cuentita</h1>
-      <nav id="menu_principal" class="barra" data-tipo-objetivo="seccion" >
-        <ul>
-          <li><a id="m_inicio" href="#inicio" >Inicio</a></li>
-          <li><a id="m_verCargas" href="#verCargas" >Ver cargas</a></li>
-          <li><a id="m_verJornada" href="#verJornada" >Ver jornada</a></li>
-          <li><a id="m_verGrilla" href="#verGrilla" >Ver grilla</a></li>
-          <li><a id="m_configuracion" href="#configuracion" >Configuración</a></li>
-        </ul>
-      </nav><!-- /#menu_principal -->
+      <div class="menu-toggle">
+        <div class="hamburger"></div>
+      </div>
+      <div class="menu_ocultable open desktop">
+        
+        <nav id="menu_principal" class="barra" data-tipo-objetivo="seccion" >
+          <ul>
+            <li><a id="m_misInicios" href="#misInicios" >Inicio</a></li>
+            <li><a id="m_misCuentitas" href="#misCuentitas" >Cuentitas</a></li>
+            <li><a id="m_misProductos" href="#misProductos" >Productos</a></li>
+            <li><a id="m_misComercios" href="#misComercios" >Comercios</a></li>
+            <li><a id="m_misPerfiles" href="#misPerfiles" >Perfiles</a></li>
+            <li><a id="m_misConfiguraciones" href="#misConfiguraciones" >Configuraciones</a></li>
+          </ul>
+        </nav><!-- /#menu_principal -->
+      </div><!-- .menu_ocultable -->
     </header><!-- /#mi_cabecera -->
 
   <!-- ------------------ -->
@@ -154,14 +169,25 @@
       </header>
       <section id="bienvenida" class="subseccion">
         <header>
-          <h2>Bienvenido <span class="valor perfil nombre"></span></h2>
+          <h2>Bienvenido <span class="valor var_perfil_nombre"></span></h2>
         </header>
+
         <div class="mensaje SIN_PERFIL">
-          <p>¡No hay perfil definido. Tienes que definir uno para comenzar!</p>
-        </div>
+          <p>
+						¡No hay perfil definido! 
+						Tienes que definir uno para empezar 
+						a realizar <strong>cuentitas</strong>.
+          </p>
+          <button class="dialogo_si" >DEFINIR PERFIL</button>
+        </div><!-- mensaje SIN_PERFIL -->
+
         <div class="mensaje SIN_CONFIGURACION">
-          <p>No hay configuradas preferencias para el perfil <span class="valor perfil id"></span>.</p>
-          <p>Puedes elegir entre configurar las preferencias de la aplicación y las características de tu tiempo o comenzar a usar con los valores por defecto.</p>
+          <p>
+            No hay configuradas preferencias para el perfil <span class="valor var_perfil_id"></span>.
+          </p>
+          <p>
+            Puedes elegir entre configurar las preferencias de la aplicación y las características de tu tiempo o comenzar a usar con los valores por defecto.
+          </p>
           <button
             data-accion="configurarPreferencias" 
             class="configurarPreferencias">
@@ -172,7 +198,7 @@
             class="comenzarYa">
             Comenzar ya
           </button>
-        </div>
+        </div><!-- mensaje SIN_CONFIGURACION -->
       </section> <!-- /#bienvenida.subseccion -->
 
       <section id="tablero" class="subseccion">
@@ -227,22 +253,7 @@
       </div><!-- .contenido -->
     </div><!-- #dialogo_confirmar -->
 
-    <div id="dialogo_primera_vez" 
-         class="dialogo" >
-      <header>
-        <h1>¡Bienvenido!</h1>
-      </header>
-      <div class="contenido">
-        <div class="mensaje">
-          <p>
-						¡No hay perfil definido! 
-						Tienes que definir uno para empezar 
-						a realizar <strong>cuentitas</strong>.
-          </p>
-        </div><!-- mensaje -->
-        <button class="dialogo_si" >DEFINIR PERFIL</button>
-      </div><!-- contenido -->
-    </div> <!-- #dialogo_primera_vez -->
+
   <!-- ------------------ -->
 
     <!-- /* DEV */ -->

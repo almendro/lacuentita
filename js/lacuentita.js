@@ -176,22 +176,7 @@ lacuentita.aplicacion = (function($,moment){
         trace( "Procesamos las barras de navegacion..." );
         trace("");
         
-        $( "a", $( ".barra" )).each( function(i){
-          var $a = $(this);
-          var $barra = $a.parents( ".barra" );
-          var tipo_objetivo = $barra.attr( "data-tipo-objetivo" );
-          
-          $a.bind("click.mis_eventos", function(){
-            /* obtenemos el id del destino */
-            var id = $a.attr("href").replace("#","");
-            ir_a({
-              id: id,
-              tipo: tipo_objetivo,
-              preprocesar_ir_a: preprocesar_ir_a[id] 
-              /* referenciamos a la ocultar_secciones dentro de preprocesar_ir_a */
-            }); /* ir_a */
-          }); /* $a.bind */
-        }); /* .each */
+
         
         $("#dev_borrar_todo").bind(
           "click.mis_eventos",
