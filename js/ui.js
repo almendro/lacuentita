@@ -67,69 +67,14 @@ lacuentita.ui = (function($){
     ,
     mostrar_dialogo_resultado: function (p){
       trace("mostrar_dialogo_resultado");
-      var $dialogo = ui.crear_dialogo({
-        class_css: "resultado",
-        botones: [{
-          class_css: "dialogo_ok",
-          etiqueta: "OK",
-          callback: p.callback_ok,
-          terminar: true
-        }]
-      });
-      trace("$dialogo id="+$dialogo.attr("id"));
-      $(".mensaje",$dialogo).html(p.mensaje);
-      $dialogos_div.fadeIn(100);
-      $dialogo.fadeIn(300);
-    } /* /mostrar_dialogo_resultado */
+    } // mostrar_dialogo_resultado
     ,
     crear_dialogo : function (p){
-      var botones = p.botones;
-      
-      var id = "dialogo_"+p.class_css;
-      trace("crear_dialogo id="+id);
-      var popup;
-      popup = '<div id="'+id+'" ';
-          popup+= 'class="dialogo" >';
-          popup+= '<div data-role="header" data-theme="a">';
-          popup+= '<h1>Confirmar</h1>';
-          popup+= '</div>';
-          popup+= '<div role="main" class="ui-content">';
-          popup+= '<h3 class="mensaje ui-title">(mensaje)</h3>';
-      for ( b in botones ){
-        popup+= '<button class="'+botones[b]["class"]+' ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">'+botones[b]["etiqueta"]+'</button>'; 
-      }
-      popup+= '</div>';
-      popup+= '</div><!-- -->';
-            
-      trace("");
-      //trace(popup);
-      $(popup).appendTo( $dialogos_div );
-      var $popup = $("#"+id);
-      $popup.hide();
-      // agrega los eventos y callback a cada  botón
-      for ( b in botones ){
-        $("."+botones[b]["class"],$popup)
-          .bind(
-            "click.mis_eventos",
-            {
-              $dialogo: $popup,
-              callback: botones[b]["callback"],
-              terminar: botones[b]["terminar"]
-            },
-            ui.cerrar_dialogo
-          );
-      }
-      return $popup;
-    } /* /crear_dialogo */
+
+    } // crear_dialogo
     ,
     cerrar_dialogo: function (p){
-      p.data.callback();
-      trace("cerrar_dialogo "+p.data.$dialogo.attr("id"));
-      p.data.$dialogo.fadeOut(300).remove();
-      if (p.data.terminar == true ){
-        $dialogos_div.fadeOut(100);
-      }
-    }
+    } // cerra_dialogo
     ,
     eliminar_dialogo: function (p){
       trace("eliminar_dialogo "+p.$dialogo.attr("id"));
@@ -154,7 +99,7 @@ lacuentita.ui = (function($){
 
       $secciones
         .filter($("#"+seccion))
-        .fadeIn(300)
+        /*.fadeIn(300)*/
         .addClass("actual");
         
       $("#menu_principal a" )
@@ -168,7 +113,7 @@ lacuentita.ui = (function($){
     ocultar_secciones : function (){
       trace('UI: ocultar_secciones');
       $secciones
-        .hide()
+        /*.hide()*/
         .removeClass("actual");
     } /* /ocultar_secciones */
     ,
