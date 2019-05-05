@@ -1,7 +1,11 @@
 <!doctype html>
 <html>
   <head>
+    
+    <!-- -- >
     <script type="text/javascript" src="assets/dev/hnl.mobileConsole.js"></script>
+    <!-- -->
+    
     <title>La Cuentita</title>
 		<!-- https://github.com/almendro/lacuentita -->
 
@@ -9,12 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
     <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
-
-<!--
-<script>window.onerror = function(e){
-  alert("error "+e.name+" "+e.message);
-}</script>
--->
 
     <script src="assets/modernizr.js"></script>
 
@@ -33,8 +31,10 @@
           alert(e);  
         }
       };
-	
+      
+      var tools;
       var app = "lacuentita";
+      
       Modernizr.load([
         {
           load: "assets/jquery-2.2.3.min.js",
@@ -55,68 +55,72 @@
         "js/io.js",
         {
           load: "js/"+app+".js",
-          complete: function (){
-            if(!window[app]){
-              trace("fallo "+app);
-            } else {
-            
-              $bitacora = $("#consola #log");
-              $consola = $("#consola");
-              $consola_fondo = $("#consola_fondo");
-              $consola_btn = $("#consola_btn");
-              trace = function (e){
-                $bitacora.append("<li>"+e+"</li>");
-              }
-              $consola_btn.bind("click",function(){
-                $consola.toggleClass("abierta");
-                if($consola.hasClass("abierta")){
-                  $consola_fondo.show();
-                  $consola_fondo.bind("click", function(){
-                    $consola_btn.click();
-                  });
-                } else {
-                  $consola_fondo.hide();
-                  $consola_fondo.unbind("click");
-                }
-              });
-             
-              $("#clearAllNiceAlert").click(function(){
-                $("#nice_alert").toggle();
-              });
-              
-							/* ------------------------------------ */
-							
-              trace("cargó con éxito "+app+".js");
-              trace("");
-              trace("... INICIAR ...");
-              /* */
-							var tools = new window.megagui.tools();
-              tools.iniciar();
-							
-              tools.doblekey.estalecer_tecla({
-								tecla: 27,
-								funcion: function(){
-									//trace("ESCAPE!!!");
-									$("#clearAllNiceAlert").click();
-								}
-							});
-							tools.doblekey.estalecer_tecla({
-								tecla: 84,
-								funcion: function(){
-									//trace("TERMINAL!!!");
-									$consola_btn.click();
-								}
-							});
-							
-              /* */
-              
-              var aplicacion = new window[app].aplicacion();
-              aplicacion.iniciar();
-              
-            }
-          } /* /complete */
+          complete: lanzar
         } /* load app */
       ]); /* /Modernizr.load */
+      
+      
+      function lanzar (){
+        /* esto es necesario que este aca asi se carga si o si */
+        if(!window[app]){
+          trace("fallo "+app);
+        } else {
+        
+          $bitacora = $("#consola #log");
+          $consola = $("#consola");
+          $consola_fondo = $("#consola_fondo");
+          $consola_btn = $("#consola_btn");
+          trace = function (e){
+            $bitacora.append("<li>"+e+"</li>");
+          }
+          $consola_btn.bind("click",function(){
+            $consola.toggleClass("abierta");
+            if($consola.hasClass("abierta")){
+              $consola_fondo.show();
+              $consola_fondo.bind("click", function(){
+                $consola_btn.click();
+              });
+            } else {
+              $consola_fondo.hide();
+              $consola_fondo.unbind("click");
+            }
+          });
+         
+          $("#clearAllNiceAlert").click(function(){
+            $("#nice_alert").toggle();
+          });
+          
+          /* ------------------------------------ */
+          
+          trace("cargó con éxito "+app+".js");
+          trace("");
+          trace("... INICIAR ...");
+          /* */
+          tools = new window.megagui.tools();
+          tools.iniciar();
+          
+          tools.doblekey.estalecer_tecla({
+            tecla: 27,
+            funcion: function(){
+              trace("ESCAPE!!!");
+              $("#clearAllNiceAlert").click();
+            }
+          });
+          tools.doblekey.estalecer_tecla({
+            tecla: 84,
+            funcion: function(){
+              trace("TERMINAL!!!");
+              $consola_btn.click();
+            }
+          });
+          
+          /* */
+          
+          var aplicacion = new window[app].aplicacion();
+          aplicacion.iniciar();
+          
+        }
+      } // lanzar
     </script>
 
     <!-- -->
