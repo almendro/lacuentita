@@ -2,7 +2,7 @@
 <html>
   <head>
     
-    <!-- -- >
+    <!-- -->
     <script type="text/javascript" src="assets/dev/hnl.mobileConsole.js"></script>
     <!-- -->
     
@@ -13,7 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
     <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="css/mi_cabecera.css" media="screen" />
 
     <script src="assets/modernizr.js"></script>
 
@@ -50,7 +49,7 @@
         "assets/jquery.serializejson.min.js",
         "assets/populateform.js",
         "assets/varios.js",
-				"assets/doblekey.js",
+    	"assets/doblekey.js",
         "assets/megagui.js",        
         "js/ui.js",
         "js/io.js",
@@ -60,13 +59,28 @@
         } /* load app */
       ]); /* /Modernizr.load */
       
-      
+      function load_partes(p){
+        trace("load_partes "+p);
+        p = listar(p);
+        for (i in p) {
+          trace("partes: "+p)
+          $("head").append('<link rel="stylesheet" type="text/css" href="css/'+p[i]+'.css" media="screen" /> ');
+          $("#"+p[i]).load(p[i]+".html",function( response, status, xhr ) {
+          if ( status == "error" ) {
+          var msg = "Sorry but there was an error: ";
+            trace( msg + xhr.status + " " + xhr.statusText );
+          }
+          });
+        }
+      }
       function lanzar (){
+        trace("lanzar");
         /* esto es necesario que este aca asi se carga si o si */
         if(!window[app]){
           trace("fallo "+app);
         } else {
-        
+        /*
+          trace("preparar bitácora");
           $bitacora = $("#consola #log");
           $consola = $("#consola");
           $consola_fondo = $("#consola_fondo");
@@ -116,7 +130,10 @@
           });
           
           /* */
-          
+          trace("preparar partes");
+          load_partes([
+            "mi_cabecera"
+            ]);
           var aplicacion = new window[app].aplicacion();
           aplicacion.iniciar();
           
@@ -143,23 +160,6 @@
   <!-- ------------------ -->
 
     <header id="mi_cabecera">
-      <h1>La Cuentita</h1>
-      <div class="menu-toggle">
-        <div class="hamburger"></div>
-      </div>
-      <div class="menu_ocultable open desktop">
-        
-        <nav id="menu_principal" class="barra" data-tipo-objetivo="seccion" >
-          <ul>
-            <li><a id="m_misInicios" href="#misInicios" >Inicio</a></li>
-            <li><a id="m_misCuentitas" href="#misCuentitas" >Cuentitas</a></li>
-            <li><a id="m_misProductos" href="#misProductos" >Productos</a></li>
-            <li><a id="m_misComercios" href="#misComercios" >Comercios</a></li>
-            <li><a id="m_misPerfiles" href="#misPerfiles" >Perfiles</a></li>
-            <li><a id="m_misConfiguraciones" href="#misConfiguraciones" >Configuraciones</a></li>
-          </ul>
-        </nav><!-- /#menu_principal -->
-      </div><!-- .menu_ocultable -->
     </header><!-- /#mi_cabecera -->
 
   <!-- ------------------ -->
