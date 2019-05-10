@@ -1,0 +1,31 @@
+<header>
+  <h2>Bienvenido <span class="valor var_perfil_nombre"></span></h2>
+</header>
+
+<div class="mensaje SIN_PERFIL">
+  <p>
+						¡No hay perfil definido! 
+						Tienes que definir uno para empezar 
+						a realizar <strong>cuentitas</strong>.
+  </p>
+  <button class="dialogo_si" >DEFINIR PERFIL</button>
+</div><!-- mensaje SIN_PERFIL -->
+
+<div class="mensaje SIN_CONFIGURACION">
+  <p>
+    No hay configuradas preferencias para el perfil <span class="valor var_perfil_id"></span>.
+  </p>
+  <p>
+    Puedes elegir entre configurar las preferencias de la aplicación y las características de tu tiempo o comenzar a usar con los valores por defecto.
+  </p>
+  <button
+    data-accion="configurarPreferencias" 
+    class="configurarPreferencias">
+    Configurar Preferencias
+  </button> 
+  <button 
+    data-accion="comenzarYa" 
+    class="comenzarYa">
+    Comenzar ya
+  </button>
+</div><!-- mensaje SIN_CONFIGURACION -->
