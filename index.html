@@ -75,6 +75,7 @@
           app_partes.actual++;
           trace("partes: "+p+" "+(Number(i)+1)+"/"+app_partes.total);
           $("head").append('<link rel="stylesheet" type="text/css" href="css/'+p[i]+'.css" media="screen" /> ');
+          $("#secciones").append('<div id="'+p[i]+'"></div>');
           $("#"+p[i]).load(p[i]+".html",function( response, status, xhr ) {
             if ( status == "error" ) {
             var msg = "Sorry but there was an error: ";
@@ -144,7 +145,8 @@
           trace("preparar partes");
           load_partes([
           "mi_cabecera",
-          "bienvenida"
+          "bienvenida",
+          "mis_inicios"
           ],
           dale_gas
           );
@@ -159,7 +161,7 @@
         });
         $("#consola").hide();
         aplicacion = new window[app].aplicacion();
-        aplicacion.iniciar();
+        //aplicacion.iniciar();
       }
     </script>
 
@@ -177,30 +179,7 @@
     </header><!-- /#mi_cabecera -->
 
   <!-- ------------------ -->
-
-    <section id="misInicios" class="seccion">
-      <header>
-        <h1>Inicio</h1>
-      </header>
-      <section id="bienvenida" class="subseccion">
-      </section> <!-- /#bienvenida.subseccion -->
-
-      <section id="tablero" class="subseccion">
-        <header>
-          <h2>¡Hola <span class="valor perfil nombre"></span>!</h2>
-        </header>
-        <p>¿Qué hacemos ahora?</p>
-        <div id="acciones_preferidas" >
-        (aqui van las acciones que el usuario configura como preferidas al comienzo)
-        </div><!-- /#acciones_preferidas -->
-      </section> <!-- /#tablero.subseccion -->
-
-    </section><!-- /#inicio.seccion -->
-
-  <!-- ------------------ -->
-
- 
-
+    <div id="secciones"></div>
   <!-- ------------------ -->
  
     <footer>
