@@ -33,7 +33,6 @@ button
 
 body
 {
-  padding-top: 90px;
   padding-bottom: 4em;
   font-family: 'Roboto';
   font-size: 16px;
@@ -51,6 +50,7 @@ body
 
 #secciones > div
 {
+	padding-top: 90px;
 	border-bottom: 1px solid #333;
 }
 

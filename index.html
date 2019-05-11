@@ -77,7 +77,8 @@
         for (i in p) {
           trace("partes: "+p[i]+" "+(Number(i)+1)+"/"+app.partes.total);
           $("head").append('<link rel="stylesheet" type="text/css" href="css/'+p[i]+'.css" media="screen" /> ');
-          $("#secciones").append('<div id="'+p[i]+'"></div>');
+          var tmp = p[i].split("_");
+          if ( tmp[0]=="mis" ) $("#secciones").append('<div id="'+p[i]+'"></div>');
           $("#"+p[i]).load(p[i]+".html",function( response, status, xhr ) {
             if ( status == "error" ) {
             var msg = "Sorry but there was an error: ";
@@ -151,29 +152,22 @@
           trace("preparar partes");
           load_partes([
           "mi_cabecera",
-          "bienvenida",
+          "mis_bienvenida",
           "mis_inicios",
           "mis_cuentitas",
           "mis_productos",
           "mis_comercios",
           "mis_perfiles",
           "mis_configuraciones",
-          "acerca_de"
+          "mis_acerca_de"
           ],
           dale_gas
           );
         }
       } // lanzar
       function dale_gas(){
-        $('.menu-toggle').click(function() {
-      
-          $('ul').toggleClass('opening');
-          $(this).toggleClass('open');
-      
-        });
-        
         app.aplicacion = new window[app.slug].aplicacion();
-        //aplicacion.iniciar();
+        app.aplicacion.iniciar();
       }
     </script>
 
@@ -209,24 +203,6 @@
       </nav>
     </footer>
     
-  <!-- ------------------ -->
-  
-    <div id="dialogos_div" class="fondo fondo_completo"></div>
-    
-    <div id="dialogo_confirmar" 
-         data-plantilla-id="dialogo_confirmar" 
-         class="plantilla_html dialogo" >
-      <header>
-        <h1>Confirmar</h1>
-      </header>
-      <div class="contenido">
-				<div class="mensaje">
-          (mensaje)
-        </div><!-- mensaje -->
-        <button class="dialogo_no" >NO</button>
-        <button class="dialogo_si" >SI</button>
-      </div><!-- .contenido -->
-    </div><!-- #dialogo_confirmar -->
 
 
   <!-- ------------------ -->
