@@ -103,8 +103,8 @@ lacuentita.aplicacion = (function($,moment){
               precio: [{ // historico
                 precio: 1,
                 fecha: "AAAAMMDD",
-                empresa: 0,
-                local: 0
+                empresa: 0, //ID key
+                local: 0 //ID key
               }],
               etiquetas: [] // listados id de etiquetas para categorías
             }], // productos
@@ -120,18 +120,28 @@ lacuentita.aplicacion = (function($,moment){
               empresa: 0,
               local: 0,
               fecha: "AAAAMMDD",
+              pv: 0, // punto de venta
+              ticket: 0, // tickets nro.
               hora: "HHMMSS",
               productos: [{
-                id: 0,
+                id: 0, // el codigo que figura en el ticket: puede ser el interno del comercio o el EAN/UCC13
                 cantidad: 0,
-                precio: 0,
-                descuento: "tipo",
+                precio: 0, // unitario
+                monto: 0, // se calcula solo
                 etiquetas_personales: []
               }], // productos
-              total: 0
+              descuentos: [{
+								id_producto: 0, // id del producto asociado
+								tipo: "2x1 | 70% 2da unidad, etc", // texto descriptivo 2x1, 70% segunda unidad, promo club, precio especial, etc
+								monto: 0
+								}],
+              total_descuentos: 0, // se calcula en base a los "tipo"
+              total: 0, // monto total
+              total_a_pagar: 0
+              
             }], // cuentitas
             etiquetas_personales: [],
-            etiquetas_mapa: []
+            etiquetas_mapa: [] // para relacionar las etiquetas personales y las generales
           } // usuario
         }; // datos
         
