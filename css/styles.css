@@ -33,7 +33,7 @@ button
 
 body
 {
-  padding-top: 130px;
+  padding-top: 90px;
   padding-bottom: 4em;
   font-family: 'Roboto';
   font-size: 16px;
@@ -49,7 +49,10 @@ body
   box-shadow: 0 2px 2px rgba(0,0,0,.5);
 }
 
-
+#secciones > div
+{
+	border-bottom: 1px solid #333;
+}
 
 
 /*
@@ -193,21 +196,21 @@ table.listado
 {
   color: #e60;
 }
+
+
+
 /* INI DEV */
 
 #consola
 {
   position: fixed;
-  z-index: 9000;
+  z-index: 19000;
   top: 0px;
-  right: 0px;
-  width: 75%;
-  min-width: 240px;
-  max-width: 600px;
-  height: 0px;
+  left: 25%;
+  width: 90px;
+  height: 90px;
   margin: 0;
   padding: 0;
-  padding-top: 90px;
   overflow: hidden;
   background-color: transparent;
   font-size: .9em;
@@ -229,13 +232,14 @@ table.listado
 
 #consola .cabecera
 {
-  position: fixed;
+  position: relative;
   top: 0;
-  right: 0;
+  left: 0;
   height: 90px;
-  width: 33%;
+  width: 100%;
   min-width: 240px;
   z-index: 9999;
+  /*background-color: #f00;*/
 }
 
 #consola.abierta .cabecera
@@ -246,20 +250,18 @@ table.listado
 
 #consola_btn
 {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+  position: relative;
+  top: 00px;
+  left: 0;
   width: 48px;
   height: 48px;
-  background: #0f0 url("../img/iconos/consola.svg") no-repeat 0 0;
-  background-size: contain;
+  background-color: #0f0;
   box-shadow: 0 8px 8px rgba(0,0,0,.5);
   border-radius: 50%;
 }
 
 #consola.abierta #consola_btn
 {
-  background-image: url("../img/iconos/consola_cerrar.svg");
   box-shadow: 0 2px 6px rgba(0,255,0,.95);
 }
 
@@ -325,7 +327,7 @@ table.listado
 #clearAllNiceAlert
 {
     display:block;
-    position:fixed;
+    position:relative;
     top:10px;
     left:40%;
     padding:.25em;
