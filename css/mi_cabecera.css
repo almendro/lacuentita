@@ -37,7 +37,7 @@
   color: #eee;
   background: #333;
   display: block;
-  padding: 1.5em 4em 1.5em 3em;
+  padding: 1em 1em;
   text-transform: uppercase;
   text-decoration: none;
 }
@@ -115,10 +115,10 @@
   }
 
   #mi_cabecera nav li a {
-    padding: 1.5em 1.3em 1.5em 1.3em;
+    padding: 1em .5em;
     margin: 0;
     border: none;
-    background-color: #f04343;
+    background-color: #333;
   }
 
   #mi_cabecera nav a:hover,  
@@ -138,7 +138,7 @@
     flex-direction: row;
     justify-content: space-between;
     text-align: center;
-    background-color: #f04343;
+    background-color: #333;
   }
 
 }

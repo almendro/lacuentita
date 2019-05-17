@@ -28,14 +28,20 @@ lacuentita.ui = (function($){
       
       $secciones = $( ".seccion" );
       $subsecciones = $( ".subseccion" );
-      $dialogos_div = $( "#dialogos_div" );
       
       trace("secciones: "+$secciones.length);
       trace("subsecciones: "+$subsecciones.length);
+    
+      $('.menu-toggle').click(function() {
       
-      $celdas_cargas = $("table.listado tr > *");
-      trace("celdas_cargas ="+$celdas_cargas.length);
+          $('#menu_principal ul').toggleClass('opening');
+          $(this).toggleClass('open');
       
+			});
+			$('#menu_principal ul a').bind("click", function(e){
+				$('.menu-toggle').click();
+			});
+			
     } /* iniciar */
     , 
 

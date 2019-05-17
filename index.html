@@ -33,13 +33,16 @@
       };
       
       var tools;
-      var app = "lacuentita";
-      var app_partes = {
-        total: 0,
-        actual: 0,
-        completo: null // function
-      };
-      var aplicacion;
+      var app = {
+				nombre: "La Cuentita",
+				slug: "lacuentita",
+				partes: {
+					total: 0,
+					actual: 0,
+					completo: null // function
+				},
+				aplicacion: false
+      }; // var app
       
       Modernizr.load([
         {
@@ -55,12 +58,12 @@
         "assets/jquery.serializejson.min.js",
         "assets/populateform.js",
         "assets/varios.js",
-    	"assets/doblekey.js",
+				"assets/doblekey.js",
         "assets/megagui.js",        
         "js/ui.js",
         "js/io.js",
         {
-          load: "js/"+app+".js",
+          load: "js/"+app.slug+".js",
           complete: lanzar
         } /* load app */
       ]); /* /Modernizr.load */
@@ -68,30 +71,33 @@
       function load_partes(p,callback){
         trace("load_partes "+p);
         p = listar(p);
-        app_partes.total = contar(p);
-        app_partes.actual = 0;
-        app_partes.completo = callback;
+        app.partes.total = contar(p);
+        app.partes.actual = 0;
+        app.partes.completo = callback;
         for (i in p) {
-          app_partes.actual++;
-          trace("partes: "+p+" "+(Number(i)+1)+"/"+app_partes.total);
+          trace("partes: "+p[i]+" "+(Number(i)+1)+"/"+app.partes.total);
           $("head").append('<link rel="stylesheet" type="text/css" href="css/'+p[i]+'.css" media="screen" /> ');
-          $("#secciones").append('<div id="'+p[i]+'"></div>');
+          var tmp = p[i].split("_");
+          if ( tmp[0]=="mis" ) $("#secciones").append('<div id="'+p[i]+'"></div>');
           $("#"+p[i]).load(p[i]+".html",function( response, status, xhr ) {
             if ( status == "error" ) {
             var msg = "Sorry but there was an error: ";
               trace( msg + xhr.status + " " + xhr.statusText );
-            }
-            if (app_partes.actual==app_partes.total) app_partes.completo();
+            } else {
+							app.partes.actual++;
+							trace("if "+app.partes.actual+"=="+app.partes.total);
+							if (app.partes.actual==app.partes.total) app.partes.completo();
+						}
           });
         }
       }
       function lanzar (){
         trace("lanzar");
         /* esto es necesario que este aca asi se carga si o si */
-        if(!window[app]){
-          trace("fallo "+app);
+        if(!window[app.slug]){
+          trace("fallo "+app.slug+".js");
         } else {
-        /*
+        
           trace("preparar bitácora");
           $bitacora = $("#consola #log");
           $consola = $("#consola");
@@ -99,6 +105,7 @@
           $consola_btn = $("#consola_btn");
           trace = function (e){
             $bitacora.append("<li>"+e+"</li>");
+            console.log(e);
           }
           $consola_btn.bind("click",function(){
             $consola.toggleClass("abierta");
@@ -119,7 +126,7 @@
           
           /* ------------------------------------ */
           
-          trace("cargó con éxito "+app+".js");
+          trace("cargó con éxito "+app.slug+".js");
           trace("");
           trace("... INICIAR ...");
           /* */
@@ -145,23 +152,22 @@
           trace("preparar partes");
           load_partes([
           "mi_cabecera",
-          "bienvenida",
-          "mis_inicios"
+          "mis_bienvenida",
+          "mis_inicios",
+          "mis_cuentitas",
+          "mis_productos",
+          "mis_comercios",
+          "mis_perfiles",
+          "mis_configuraciones",
+          "mis_acerca_de"
           ],
           dale_gas
           );
         }
       } // lanzar
       function dale_gas(){
-        $('.menu-toggle').click(function() {
-      
-          $('ul').toggleClass('opening');
-          $(this).toggleClass('open');
-      
-        });
-        $("#consola").hide();
-        aplicacion = new window[app].aplicacion();
-        //aplicacion.iniciar();
+        app.aplicacion = new window[app.slug].aplicacion();
+        app.aplicacion.iniciar();
       }
     </script>
 
@@ -197,24 +203,6 @@
       </nav>
     </footer>
     
-  <!-- ------------------ -->
-  
-    <div id="dialogos_div" class="fondo fondo_completo"></div>
-    
-    <div id="dialogo_confirmar" 
-         data-plantilla-id="dialogo_confirmar" 
-         class="plantilla_html dialogo" >
-      <header>
-        <h1>Confirmar</h1>
-      </header>
-      <div class="contenido">
-				<div class="mensaje">
-          (mensaje)
-        </div><!-- mensaje -->
-        <button class="dialogo_no" >NO</button>
-        <button class="dialogo_si" >SI</button>
-      </div><!-- .contenido -->
-    </div><!-- #dialogo_confirmar -->
 
 
   <!-- ------------------ -->
@@ -225,6 +213,9 @@
     <div id="consola">
       <header class="cabecera">
         <button id="consola_btn" class="btn btn-fab"><span>>CONSOLA</span></button>
+				<div id="clearAllNiceAlert" class="btn btn-raised btn-danger btn-xs">
+					Toggle All NiceAlerts
+				</div>
         <h3>CONSOLA</h3>
       </header>
       <ol id="log">
@@ -232,9 +223,7 @@
     </div><!-- /#consola -->
     
     
-    <div id="clearAllNiceAlert" class="btn btn-raised btn-danger btn-xs">
-			Toggle All NiceAlerts
-    </div>
+
     <!-- -->
 
   </body>
