@@ -29,8 +29,8 @@ lacuentita.io = (function($){
     iniciar: function (p){
       soy_io = this;
       trace('iniciar la IO (input/output data)');
-      $.alwaysUseJsonInStorage(true);
-      storage = $.localStorage;
+      Storages.alwaysUseJsonInStorage(true);
+      storage = Storages.localStorage;
       apl = p.aplicacion_prefijo;
     } /* /iniciar */
     ,
