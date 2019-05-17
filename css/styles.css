@@ -197,7 +197,10 @@ table.listado
   color: #e60;
 }
 
-
+pre
+{
+  overflow-wrap:  break-word;
+}
 
 /* INI DEV */
 
