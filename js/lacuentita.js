@@ -73,6 +73,34 @@ lacuentita.aplicacion = (function($,moment){
           email: ""
         };
         
+        perfil_form = {
+          "schema": {
+            "nombre": {
+              "type": "string",
+              "title": "Nombre"
+            },
+            "alias": {
+              "type": "string",
+              "title": "Alias o apodo"
+            },
+            "email": {
+              "type": "string",
+              "title": "Email"
+            }
+            "id": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+          ,
+          "form": [
+            {
+              "key": "email",
+              "type": "email"
+            }
+          ]
+        }; // perfil_form
+        
         configuracion = {
           preferencias: {},
           otras: {}
