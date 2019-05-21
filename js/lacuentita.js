@@ -77,7 +77,8 @@ lacuentita.aplicacion = (function($,moment){
           "schema": {
             "nombre": {
               "type": "string",
-              "title": "Nombre"
+              "title": "Nombre",
+              "required": true
             },
             "alias": {
               "type": "string",
@@ -85,7 +86,8 @@ lacuentita.aplicacion = (function($,moment){
             },
             "email": {
               "type": "string",
-              "title": "Email"
+              "title": "Email",
+              "required": true
             },
             "id": {
               "type": "string",
@@ -95,10 +97,33 @@ lacuentita.aplicacion = (function($,moment){
           ,
           "form": [
             {
+              "key": "nombre"
+            },
+            {
+              "key": "alias"
+            },
+            {
               "key": "email",
               "type": "email"
+            },
+            {
+              "key": "id",
+              "readonly": true
+            },
+            {
+              "type": "submit",
+              "title": "Enviar"
             }
           ] // form
+          ,
+          onSubmit: function (errors, values) {
+            if (errors) {
+              $('agregar_perfiles').append('<p>Falta algo</p>');
+            }
+            else {
+              $('#agregar_perfiles').append('<p>Hola ' + values.nombre + '</p>');
+            }
+          }
         }; // perfil_form
         
         configuracion = {
@@ -182,7 +207,6 @@ lacuentita.aplicacion = (function($,moment){
         $botones_enviar = $( ".enviar" );
         
         $("#agregar_perfiles form").jsonForm(perfil_form);
-        
     }; /* this.iniciar */
     
     var estado = function(p) {
