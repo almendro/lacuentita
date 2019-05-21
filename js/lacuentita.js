@@ -86,19 +86,19 @@ lacuentita.aplicacion = (function($,moment){
             "email": {
               "type": "string",
               "title": "Email"
-            }
+            },
             "id": {
               "type": "string",
               "title": "Id"
             }
-          }
+          } // schema
           ,
           "form": [
             {
               "key": "email",
               "type": "email"
             }
-          ]
+          ] // form
         }; // perfil_form
         
         configuracion = {
@@ -180,6 +180,8 @@ lacuentita.aplicacion = (function($,moment){
         $secciones = $( ".seccion" );
         $subsecciones = $( ".subseccion" );
         $botones_enviar = $( ".enviar" );
+        
+        $("#agregar_perfiles form").jsonForm(perfil_form);
         
     }; /* this.iniciar */
     
