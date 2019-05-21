@@ -1,0 +1,45 @@
+# archivos de respaldo de editores
+*~
+*.*~
+*.bak
+
+# para ignorar a mano
+_*
+_*/*
+*.ignore
+
+# para ignorar los links de MyGit
+Git*.lnk
+
+# 'Accesos directos' Windows
+*.lnk
+
+# lock de documentos abiertos LibreOffice y MS Office
+.~lock*.*
+~$*.*
+
+# lock para documentos abiertos de InDesign
+~*.idlk
+
+# específicos de Total Commander
+descript.ion
+
+# Archivos de MS Windows
+Thumbs.db
+desktop.ini
+
+# Archivos de MAC OS
+.DS_Store
+
+# Archivos comprimidos y/o empaquetados
+*.zip
+*.rar
+*.gz
+*.7z
+*.tar
+*.iso
+
+# Notepad++ Session
+*.nps
+
+#fin .gitignore
