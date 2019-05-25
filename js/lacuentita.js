@@ -28,6 +28,8 @@ lacuentita.aplicacion = (function($,moment){
         configuracion,
         valores_por_defecto;
     
+    var forms_json; // aca se definen los esquemas de formularios.
+    
     var datos; /* objeto con toda la data de usuario */
     
     /* data input/output e interfaz usuario */
@@ -51,9 +53,7 @@ lacuentita.aplicacion = (function($,moment){
       
         trace('iniciamos la aplicación');
         
-        /*
-        Referenciar los módulos e inicializarlos
-        */
+        // Referenciar los módulos e inicializarlos
         
         ui = lacuentita.ui;
         ui.iniciar();
@@ -73,59 +73,83 @@ lacuentita.aplicacion = (function($,moment){
           email: ""
         };
         
-        perfil_form = {
-          "schema": {
-            "nombre": {
-              "type": "string",
-              "title": "Nombre",
-              "required": true
-            },
-            "alias": {
-              "type": "string",
-              "title": "Alias o apodo"
-            },
-            "email": {
-              "type": "string",
-              "title": "Email",
-              "required": true
-            },
-            "id": {
-              "type": "string",
-              "title": "Id"
-            }
-          } // schema
-          ,
-          "form": [
-            {
-              "key": "nombre"
-            },
-            {
-              "key": "alias"
-            },
-            {
-              "key": "email",
-              "type": "email"
-            },
-            {
-              "key": "id",
-              "readonly": true
-            },
-            {
-              "type": "submit",
-              "title": "Enviar"
-            }
-          ] // form
-          ,
-          onSubmit: function (errors, values) {
-            if (errors) {
-              $('agregar_perfiles').append('<p>Falta algo</p>');
-            }
-            else {
-              $('#agregar_perfiles').append('<p>Hola ' + values.nombre + '</p>');
-            }
-          }
-        }; // perfil_form
-        
+        forms_json = {
+					"perfil" : {
+						"schema": {
+							"nombre": {
+								"type": "string",
+								"title": "Nombre",
+								"required": true
+							},
+							"alias": {
+								"type": "string",
+								"title": "Alias o apodo"
+							},
+							"email": {
+								"type": "string",
+								"title": "Email",
+								"required": true
+							},
+							"id": {
+								"type": "string",
+								"title": "Id"
+							}
+						} // schema
+						,
+						"form": [
+							{
+								"key": "nombre"
+							},
+							{
+								"key": "alias"
+							},
+							{
+								"key": "email",
+								"type": "email"
+							},
+							{
+								"key": "id",
+								"readonly": true
+							},
+							{
+								"type": "submit",
+								"title": "Enviar"
+							}
+						] // form
+						,
+						onSubmit: enviar_form_perfil
+					} // perfil
+					,
+					"herramientas": {
+						"convertir_csv_qif": {
+							"cargar_csv": {
+								"schema": {
+									"archivo": {
+										"type": "file",
+										"title": "Seleccione el archivo CSV"
+									}
+								},
+								"form": [
+									{
+										"key": "archivo",
+										"title": "Seleccione CSV",
+										"onChange": function (evt) {
+											var value = $(evt.target).val();
+											if (value) trace("onChange: "+value);
+										}
+									},
+									{
+										"type": "submit",
+										"title": "Enviar CSV"
+									}
+								] // form
+								,
+								onSubmit: enviar_form_convertir_csv_qif_cargar_csv
+							} // cargar_archivo
+						} // convertir
+					} // herramientas
+				}; // forms_json
+					
         configuracion = {
           preferencias: {},
           otras: {}
@@ -206,9 +230,30 @@ lacuentita.aplicacion = (function($,moment){
         $subsecciones = $( ".subseccion" );
         $botones_enviar = $( ".enviar" );
         
-        $("#agregar_perfiles form").jsonForm(perfil_form);
+        $("#agregar_perfiles form").empty().jsonForm(forms_json.perfil);
+        $("#convertir_csv_qif #cargar_csv").jsonForm(forms_json.herramientas.convertir_csv_qif.cargar_csv);
     }; /* this.iniciar */
+
     
+    var enviar_form_perfil = function (errors, values) {
+			if (errors) {
+				$('#agregar_perfiles').append('<p>Falta algo</p>');
+			}
+			else {
+				$('#agregar_perfiles').append('<p>Hola ' + values.nombre + '</p>');
+			}
+		}
+		
+		var enviar_form_convertir_csv_qif_cargar_csv = function (errors, values) {
+			if (errors) {
+				$('#convertir_csv_qif').append('<p>Falta algo</p>');
+			}
+			else {
+				trace("values ="+JSON.stringify(values));
+				$('#convertir_csv_qif').append('<p>ARCHIVO CSV ' + values.archivo + '</p>');
+			}
+		}
+		
     var estado = function(p) {
     }; /* /estado */
     

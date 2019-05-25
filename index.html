@@ -7,7 +7,7 @@
     <!-- -->
     
     <title>La Cuentita</title>
-		<!-- https://github.com/almendro/lacuentita -->
+    <!-- https://github.com/almendro/lacuentita -->
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -18,13 +18,13 @@
     <script src="assets/modernizr.js"></script>
     <script src="assets/underscore-min.js"></script>
     
-		<link rel="stylesheet" type="text/css" href="assets/datatables/datatables.min.css"/>
-		<!--<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>-->
-		
+    <link rel="stylesheet" type="text/css" href="assets/datatables/datatables.min.css"/>
+    <!--<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>-->
+    
     <script>
       
       /*
-				Consola alternativa para desarrollo en tablet
+        Consola alternativa para desarrollo en tablet
       */
       var $consola, $bitacora, trace;
       trace=function(e){
@@ -39,19 +39,19 @@
       
       var tools;
       var app = {
-				nombre: "La Cuentita",
-				slug: "lacuentita",
-				partes: {
-					total: 0,
-					actual: 0,
-					completo: null // function
-				},
-				aplicacion: false
+        nombre: "La Cuentita",
+        slug: "lacuentita",
+        partes: {
+          total: 0,
+          actual: 0,
+          completo: null // function
+        },
+        aplicacion: false
       }; // var app
       
       Modernizr.load([
         {
-          load: "assets/jquery-3.3.1.min.js",
+          load: "assets/jquery-3.3.1.js",
           complete: function (){
             if(!window.jQuery){
               trace("fallo jQuery");
@@ -64,7 +64,7 @@
         "assets/jsonform.js",
         "assets/jsv.js",
         "assets/varios.js",
-				"assets/doblekey.js",
+        "assets/doblekey.js",
         "assets/megagui.js",        
         "js/ui.js",
         "js/io.js",
@@ -73,6 +73,13 @@
           complete: lanzar
         } /* load app */
       ]); /* /Modernizr.load */
+      
+      // Check for the various File API support.
+      if (window.File && window.FileReader && window.FileList && window.Blob) {
+        trace("Great success! All the File APIs are supported.");
+      } else {
+        trace('The File APIs are not fully supported in this browser.');
+      }
       
       function load_partes(p,callback){
         trace("load_partes "+p);
@@ -90,10 +97,10 @@
             var msg = "Sorry but there was an error: ";
               trace( msg + xhr.status + " " + xhr.statusText );
             } else {
-							app.partes.actual++;
-							trace("if "+app.partes.actual+"=="+app.partes.total);
-							if (app.partes.actual==app.partes.total) app.partes.completo();
-						}
+              app.partes.actual++;
+              trace("if "+app.partes.actual+"=="+app.partes.total);
+              if (app.partes.actual==app.partes.total) app.partes.completo();
+            }
           });
         }
       }
@@ -163,6 +170,7 @@
           "mis_cuentitas",
           "mis_productos",
           "mis_comercios",
+          "mis_herramientas",
           "mis_perfiles",
           "mis_configuraciones",
           "mis_acerca_de"
@@ -219,9 +227,9 @@
     <div id="consola">
       <header class="cabecera">
         <button id="consola_btn" class="btn btn-fab"><span>>CONSOLA</span></button>
-				<div id="clearAllNiceAlert" class="btn btn-raised btn-danger btn-xs">
-					Toggle All NiceAlerts
-				</div>
+        <div id="clearAllNiceAlert" class="btn btn-raised btn-danger btn-xs">
+          Toggle All NiceAlerts
+        </div>
         <h3>CONSOLA</h3>
       </header>
       <ol id="log">
