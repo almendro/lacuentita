@@ -270,9 +270,10 @@ lacuentita.aplicacion = (function($,moment){
 				reader.onload = (function(theFile) {
 					return function(e) {
 						// Render thumbnail.
-						var span = document.createElement('span');
-						span.innerHTML = e.target.result;
-						document.getElementById('list').insertBefore(span, null);
+						//var span = document.createElement('span');
+						//span.innerHTML = e.target.result;
+						//document.getElementById('list').insertBefore(span, null);
+						procesar_archivo_csv(e.target.result);
 					};
 				})(f);
 
@@ -292,6 +293,26 @@ lacuentita.aplicacion = (function($,moment){
 			}
 		}
 		
+		var procesar_archivo_csv = function (data)
+		{
+			trace("CSV to ARRAYS");
+			var data = $.csv.toArrays(data);
+			var cabecera = [];
+			
+			// convertimos la primera fila en los encabezados
+			for (var c in data[0]){
+				cabecera.push({"title": data[0][c]});
+			}
+			
+			// quitamos la primera fila
+			data.splice(0,1);
+			$("#mostrar_csv").DataTable({
+				data: data,
+				columns: cabecera
+			});
+		}
+
+
     var estado = function(p) {
     }; /* /estado */
     
