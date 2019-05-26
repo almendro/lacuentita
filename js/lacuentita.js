@@ -226,12 +226,19 @@ lacuentita.aplicacion = (function($,moment){
         
         hoy = moment().format("YYYYMMDD");
         
+        /*
         $secciones = $( ".seccion" );
         $subsecciones = $( ".subseccion" );
         $botones_enviar = $( ".enviar" );
+        */
         
         $("#agregar_perfiles form").empty().jsonForm(forms_json.perfil);
-        $("#convertir_csv_qif #cargar_csv").jsonForm(forms_json.herramientas.convertir_csv_qif.cargar_csv);
+        //$("#convertir_csv_qif #cargar_csv").jsonForm(forms_json.herramientas.convertir_csv_qif.cargar_csv);
+        
+        //$("#enviar_archivo_csv").click(eventData, enviar_form_convertir_csv_qif_cargar_csv);
+        
+        document.getElementById('archivo_csv').addEventListener('change', handleFileSelect, false);
+        
     }; /* this.iniciar */
 
     
@@ -244,7 +251,38 @@ lacuentita.aplicacion = (function($,moment){
 			}
 		}
 		
-		var enviar_form_convertir_csv_qif_cargar_csv = function (errors, values) {
+		// https://www.html5rocks.com/en/tutorials/file/dndfiles/
+		
+		function handleFileSelect(evt) {
+			var files = evt.target.files; // FileList object
+
+			// files is a FileList of File objects. List some properties.
+			var output = [];
+			for (var i = 0, f; f = files[i]; i++) {
+				output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+					f.size, ' bytes, last modified: ',
+					f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+					'</li>');
+					
+				var reader = new FileReader();
+
+				// Closure to capture the file information.
+				reader.onload = (function(theFile) {
+					return function(e) {
+						// Render thumbnail.
+						var span = document.createElement('span');
+						span.innerHTML = e.target.result;
+						document.getElementById('list').insertBefore(span, null);
+					};
+				})(f);
+
+				// Read in the image file as a data URL.
+				reader.readAsText(f);
+			}
+			document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+		}
+		
+		var enviar_form_convertir_csv_qif_cargar_csv = function (eventData) {
 			if (errors) {
 				$('#convertir_csv_qif').append('<p>Falta algo</p>');
 			}
