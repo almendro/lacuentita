@@ -48,6 +48,8 @@ lacuentita.aplicacion = (function($,moment){
     var estoy_en,
         seccion_actual , 
         subseccion_actual;
+        
+    var conversor_csv_qif;
     
     this.iniciar = function(){
       
@@ -64,7 +66,9 @@ lacuentita.aplicacion = (function($,moment){
         /* fin iniciar módulos */
 
 
-				/* INICIA ESTRUCTURA DE DATOS */
+		/* INICIA ESTRUCTURA DE DATOS */
+		
+		conversor_csv_qif ={};
 				
         perfil = {
           id: "",
@@ -150,9 +154,40 @@ lacuentita.aplicacion = (function($,moment){
 							"definir_campos": {
 							  "schema": {
 							    "categoria_origen": {
-							      "type": "string"
-							    }
+							      "type": "string",
+							      "title": "Categoría origen"
+							    },
+							    "tipo": {
+							      "type": "string",
+							       "title": "Tipo de cuenta"
+							    },
+							    "fecha": {
+							      "type": "string",
+							      "title": "Fecha",
+							      "enum": []
+							    },
+			            		"descripcion": {
+				                	"type": "string",
+				                	"title": "Descripción",
+			                		"enum": []
+				             	},
+				             	"mensaje": {
+				                 	"type": "string",
+				                 	"title": "Mensaje",
+				                	"enum": []
+				             	},
+				             	"categoria_destino": {
+				                	"type": "string",
+				                	"title": "Categoría destino"
+				             	},
+				             	"monto": {
+				                 	"type": "string",
+				                	"title": "Monto",
+				                 	"enum": []
+				             	}
 							  } // schema
+,
+onSubmit: enviar_form_convertir_csv_qif_convertir
 							} // definir_campos
 						} // convertir
 					} // herramientas
@@ -288,7 +323,7 @@ lacuentita.aplicacion = (function($,moment){
 				// Read in the image file as a data URL.
 				reader.readAsText(f);
 			}
-			document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+			//document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
 		}
 		
 		var enviar_form_convertir_csv_qif_cargar_csv = function (eventData) {
@@ -310,6 +345,7 @@ lacuentita.aplicacion = (function($,moment){
 			// convertimos la primera fila en los encabezados
 			for (var c in data[0]){
 				cabecera.push({"title": data[0][c]});
+				conversor_csv_qif["mapaData"][cabecera[c]]=c; // SEGUIR AQUÍ
 			}
 			
 			// quitamos la primera fila
@@ -319,26 +355,35 @@ lacuentita.aplicacion = (function($,moment){
 				columns: cabecera
 			});
 			
-			//conversión hardcodeada!!!
-			var Pepe ="";
-			var NL="\n";
-			var mapaData={};
+			conversor_csv_qif["data"] = data;
 			
-			Pepe+="!Account"+NL;
-			Pepe+="N"+data[t][mapaData.categoria_origen]+NL;
-			Pepe+="^"+NL;
-			for (var t in data){
-			Pepe+="!Type:"+mapaData.tipo_cuenta+NL;
-			Pepe+="D"+data[t][mapaData.fecha]+NL;
-			Pepe+="P"+data[t][mapaData.descripcion]+NL;
-			Pepe+="M"+data[t][mapaData.mensaje]+NL;
-			Pepe+="S"+data[t][mapaData.categoria_destino]+NL;
-			Pepe+="$"+data[t][mapaData.monto]+NL;
-			Pepe+="^"+NL;
-			}
-			$("#convertido").text(Pepe);
+			// aquí habilitar forma
+			// para cotejar campos
 		}
 
+    var enviar_form_convertir_csv_qif_convertir = function (eventData){
+    
+//conversión hardcodeada!!!
+var Pepe ="";
+var NL="\n";
+var mapaData={};
+
+Pepe+="!Account"+NL;
+Pepe+="N"+data[t][mapaData.categoria_origen]+NL;
+Pepe+="^"+NL;
+for (var t in data){
+Pepe+="!Type:"+mapaData.tipo_cuenta+NL;
+Pepe+="D"+data[t][mapaData.fecha]+NL;
+Pepe+="P"+data[t][mapaData.descripcion]+NL;
+Pepe+="M"+data[t][mapaData.mensaje]+NL;
+Pepe+="S"+data[t][mapaData.categoria_destino]+NL;
+Pepe+="$"+data[t][mapaData.monto]+NL;
+Pepe+="^"+NL;
+}
+$("#convertido").text(Pepe);
+
+    
+    }; // enviar_form_convertir_csv_qif_convertir
 
     var estado = function(p) {
     }; /* /estado */
