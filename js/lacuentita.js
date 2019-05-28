@@ -78,7 +78,7 @@ lacuentita.aplicacion = (function($,moment){
 						"schema": {
 							"nombre": {
 								"type": "string",
-								"title": "Nombre",
+							"title": "Nombre",
 								"required": true
 							},
 							"alias": {
@@ -146,6 +146,14 @@ lacuentita.aplicacion = (function($,moment){
 								,
 								onSubmit: enviar_form_convertir_csv_qif_cargar_csv
 							} // cargar_archivo
+							,
+							"definir_campos": {
+							  "schema": {
+							    "categoria_origen": {
+							      "type": "string"
+							    }
+							  } // schema
+							} // definir_campos
 						} // convertir
 					} // herramientas
 				}; // forms_json
@@ -310,6 +318,25 @@ lacuentita.aplicacion = (function($,moment){
 				data: data,
 				columns: cabecera
 			});
+			
+			//conversión hardcodeada!!!
+			var Pepe ="";
+			var NL="\n";
+			var mapaData={};
+			
+			Pepe+="!Account"+NL;
+			Pepe+="N"+data[t][mapaData.categoria_origen]+NL;
+			Pepe+="^"+NL;
+			for (var t in data){
+			Pepe+="!Type:"+mapaData.tipo_cuenta+NL;
+			Pepe+="D"+data[t][mapaData.fecha]+NL;
+			Pepe+="P"+data[t][mapaData.descripcion]+NL;
+			Pepe+="M"+data[t][mapaData.mensaje]+NL;
+			Pepe+="S"+data[t][mapaData.categoria_destino]+NL;
+			Pepe+="$"+data[t][mapaData.monto]+NL;
+			Pepe+="^"+NL;
+			}
+			$("#convertido").text(Pepe);
 		}
 
 
